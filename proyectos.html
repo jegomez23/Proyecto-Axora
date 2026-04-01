@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./dist/output.css" rel="stylesheet">
+  <style>
+    .menu-line {
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .menu-btn.is-open .line-1 {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-btn.is-open .line-2 {
+      opacity: 0;
+    }
+
+    .menu-btn.is-open .line-3 {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .menu-panel {
+      max-height: 0;
+      overflow: hidden;
+    }
+
+    .menu-panel.is-open {
+      max-height: 420px;
+    }
+  
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    [data-nav-surface] {
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+    }
+
+    [data-nav-surface].is-scrolled {
+      background-color: rgba(0, 0, 0, 0.65);
+      border-color: rgba(139, 92, 246, 0.35);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(14px);
+    }
+
+    .axora-reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .axora-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .axora-section {
+      isolation: isolate;
+    }
+
+    .axora-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: min(92%, 1100px);
+      height: 1px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .axora-card {
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .axora-card:hover {
+      box-shadow: 0 18px 40px rgba(139, 92, 246, 0.15);
+      border-color: rgba(139, 92, 246, 0.6);
+    }
+
+    .axora-cta {
+      transition: box-shadow 0.3s ease, filter 0.3s ease;
+    }
+
+    .axora-cta:hover {
+      box-shadow: 0 0 25px rgba(139, 92, 246, 0.45);
+      filter: brightness(1.05);
+    }
+
+    .axora-input:focus {
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+    }
+
+    .axora-carousel-track {
+      display: flex;
+      gap: 1.5rem;
+      transition: transform 0.5s ease;
+      will-change: transform;
+    }
+
+    .axora-carousel-item {
+      flex: 0 0 100%;
+    }
+
+    @media (min-width: 640px) {
+      .axora-carousel-item {
+        flex-basis: 50%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .axora-carousel-item {
+        flex-basis: 33.3333%;
+      }
+    }
+
+    .axora-carousel-btn {
+      height: 40px;
+      width: 40px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.35);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .axora-carousel-btn:hover {
+      background: rgba(139, 92, 246, 0.35);
+      border-color: rgba(139, 92, 246, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .axora-dot {
+      height: 8px;
+      width: 8px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.3);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .axora-dot.is-active {
+      background: rgba(139, 92, 246, 0.9);
+      transform: scale(1.25);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .axora-reveal {
+        transition: none;
+        transform: none;
+        opacity: 1;
+      }
+
+      .axora-carousel-track {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white">
+  <div class="bg-[url(../img/cielogalaxiamoradagrande.jpg)] bg-cover bg-center lg:h-full lg:w-full">
+    <header class="fixed top-0 left-0 w-full z-50" data-navbar>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-6">
+        <div
+          data-nav-surface class="relative rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
+          <div class="absolute inset-x-6 -bottom-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+          <nav class="px-4 sm:px-6 py-4 flex items-center gap-8 lg:justify-between justify-around">
+            <div class="flex items-center">
+              <img
+                src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
+                alt="Axora Agency" class="w-32 lg:w-52">
+            </div>
+            <ul class="hidden md:flex items-center gap-8 text-white font-medium lg:text-lg">
+              <li>
+                <a href="index.html#inicio"
+                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Inicio</a>
+              </li>
+              <li>
+                <a href="soluciones.html#inicio"
+                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Soluciones</a>
+              </li>
+              <li>
+                <a href="proceso.html#inicio"
+                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Como trabajamos</a>
+              </li>
+              <li>
+                <a href="proyectos.html#inicio"
+                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Proyectos</a>
+              </li>
+              <li>
+                <a href="contacto.html#inicio"
+                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Contacto</a>
+              </li>
+            </ul>
+            <div class="hidden lg:flex items-center text-center">
+              <a href="contacto.html#inicio"
+                class="px-6 py-3 rounded-full border border-violet-500 text-white bg-black/40 hover:bg-violet-600/80 hover:border-violet-600 transition-colors duration-300 shadow-[0_0_15px_rgba(139,92,246,0.4)]">
+                Diagnóstico gratuito
+              </a>
+            </div>
+            <button class="md:hidden text-white focus:outline-none menu-btn" data-menu-btn aria-expanded="false"
+              aria-controls="mobile-menu">
+              <span class="sr-only">Abrir menu</span>
+              <span class="block h-0.5 w-8 bg-white rounded menu-line line-1"></span>
+              <span class="block h-0.5 w-8 bg-white rounded menu-line line-2 mt-2"></span>
+              <span class="block h-0.5 w-8 bg-white rounded menu-line line-3 mt-2"></span>
+            </button>
+          </nav>
+          <div id="mobile-menu" data-menu-panel
+            class="menu-panel md:hidden px-4 pb-5 pt-2 space-y-3 text-white/90 bg-black/40 border-t border-white/10 transition-all duration-300 opacity-0 -translate-y-2 pointer-events-none">
+            <a href="index.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Inicio</a>
+            <a href="soluciones.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Soluciones</a>
+            <a href="proceso.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Como trabajamos</a>
+            <a href="proyectos.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Proyectos</a>
+            <a href="contacto.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Contacto</a>
+            <a href="contacto.html#inicio"
+              class="mt-2 inline-flex items-center justify-center w-full px-6 py-3 rounded-full border border-violet-500 text-white bg-violet-600/80 hover:bg-violet-600 transition-colors duration-300">
+              Diagnostico gratuito
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="inicio" class="relative min-h-[70vh] lg:min-h-[80vh]">
+        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+          src="img/videogalaxia.mp4"></video>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black/90"></div>
+        <div class="relative z-10 px-6 pt-52 pb-16">
+          <div class="max-w-6xl mx-auto space-y-6 mt-40 lg:mt-50">
+            <h1 class="text-4xl lg:text-6xl font-semibold">Resultados visuales que generan confianza</h1>
+            <p class="text-white/80 max-w-2xl">Si aún no hay casos reales, mostramos escenarios simulados bien presentados
+              para que imagines el resultado final.</p>
+            <a href="contacto.html#inicio"
+              class="inline-flex items-center justify-center px-8 py-3 rounded-full border border-violet-500 bg-violet-600/80 hover:bg-violet-600 transition-all duration-300 shadow-[0_0_15px_rgba(139,92,246,0.4)] hover:-translate-y-1">
+              Ver una demo para tu negocio
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="relative px-6 py-20 lg:py-28">
+        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+          src="img/videogalaxia.mp4"></video>
+        <div class="absolute inset-0 bg-gradient-to-r from-violet-700/40 via-black/80 to-black"></div>
+        <div class="relative max-w-6xl mx-auto space-y-12">
+          <div class="text-center space-y-4">
+            <h2 class="text-3xl lg:text-5xl font-semibold">Casos simulados y mockups</h2>
+            <p class="text-white/80 max-w-2xl mx-auto">El objetivo es mostrar el enfoque visual y estratégico.</p>
+          </div>
+          <div class="grid gap-8 lg:grid-cols-3">
+            <div class="rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
+              <div class="h-36 rounded-2xl bg-gradient-to-r from-violet-500/30 via-violet-400/10 to-transparent"></div>
+              <p class="text-violet-400 font-semibold mt-5">Caso simulado: Bistro Norte</p>
+              <p class="text-white/80 mt-2">Landing de reservas y menú digital para restaurante local.</p>
+              <p class="text-white/70 mt-3">Incluye: UX, copy, propuesta visual.</p>
+            </div>
+            <div class="rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
+              <div class="h-36 rounded-2xl bg-gradient-to-r from-violet-500/30 via-violet-400/10 to-transparent"></div>
+              <p class="text-violet-400 font-semibold mt-5">Mockup: Clínica estética</p>
+              <p class="text-white/80 mt-2">Web enfocada en conversión y agenda online.</p>
+              <p class="text-white/70 mt-3">Incluye: estructura y mensajes clave.</p>
+            </div>
+            <div class="rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
+              <div class="h-36 rounded-2xl bg-gradient-to-r from-violet-500/30 via-violet-400/10 to-transparent"></div>
+              <p class="text-violet-400 font-semibold mt-5">Antes / después: Tienda local</p>
+              <p class="text-white/80 mt-2">Rebrand visual y mejoras de presencia.</p>
+              <p class="text-white/70 mt-3">Incluye: propuesta gráfica y layout.</p>
+            </div>
+          </div>
+          <div class="grid gap-6 lg:grid-cols-2">
+            <div class="rounded-3xl border border-violet-500/40 bg-black/40 p-8 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/70">
+              <p class="text-violet-400 font-semibold">Objetivo</p>
+              <p class="text-white/80 mt-3">Demostrar cómo lucirá y funcionará el proyecto terminado.</p>
+            </div>
+            <div class="rounded-3xl border border-violet-500/40 bg-black/40 p-8 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/70">
+              <p class="text-violet-400 font-semibold">Confianza</p>
+              <p class="text-white/80 mt-3">Una demo bien presentada elimina dudas y acelera decisiones.</p>
+            </div>
+          </div>
+          <div class="text-center">
+            <a href="contacto.html#inicio"
+              class="inline-flex items-center justify-center px-10 py-3 rounded-full border border-violet-500 bg-violet-600/80 hover:bg-violet-600 transition-all duration-300 hover:-translate-y-1 shadow-[0_0_15px_rgba(139,92,246,0.4)]">
+              Quiero un caso simulado para mi negocio
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="px-6 py-12 bg-black">
+      <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-4">
+        <div class="space-y-4">
+          <img src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
+            alt="Axora Agency" class="w-32">
+          <p class="text-white/70">Agencia digital para negocios locales que quieren crecer con tecnologia.</p>
+        </div>
+        <div class="space-y-3">
+          <p class="font-semibold">Enlaces</p>
+          <a href="index.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Inicio</a>
+          <a href="soluciones.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Soluciones</a>
+          <a href="proceso.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Como trabajamos</a>
+          <a href="contacto.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Contacto</a>
+        </div>
+        <div class="space-y-3">
+          <p class="font-semibold">Servicios</p>
+          <p class="text-white/70">Webs</p>
+          <p class="text-white/70">Redes</p>
+          <p class="text-white/70">Automatizacion</p>
+          <p class="text-white/70">Meta Ads</p>
+        </div>
+        <div class="space-y-3">
+          <p class="font-semibold">Contacto</p>
+          <p class="text-white/70">hola@axora.agency</p>
+          <p class="text-white/70">+34 600 000 000</p>
+          <div class="flex gap-4">
+            <a href="#" class="text-white/70 hover:text-violet-400 transition-colors">Instagram</a>
+            <a href="#" class="text-white/70 hover:text-violet-400 transition-colors">Facebook</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="main.js" defer></script>
+</body>
+
+</html>

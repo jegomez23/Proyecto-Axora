@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+/* Estado inicial transparente */
+#navbar {
+  background: transparent;
+}
+
+/* Clase que activaremos después con JS */
+.nav-scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
