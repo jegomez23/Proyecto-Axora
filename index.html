@@ -1,264 +1,76 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axora | Impulso digital para negocios locales</title>
+  <meta name="description"
+    content="Axora ayuda a negocios locales a crecer con una web clara, automatización útil y contenido diseñado para convertir.">
   <link href="./dist/output.css" rel="stylesheet">
-  <style>
-    .menu-line {
-      transition: transform 0.25s ease, opacity 0.25s ease;
-    }
-
-    .menu-btn.is-open .line-1 {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .menu-btn.is-open .line-2 {
-      opacity: 0;
-    }
-
-    .menu-btn.is-open .line-3 {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .menu-panel {
-      max-height: 0;
-      overflow: hidden;
-    }
-
-    .menu-panel.is-open {
-      max-height: 420px;
-    }
-  
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    .axora-scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      width: 100%;
-      background: linear-gradient(90deg, rgba(139, 92, 246, 0.95), rgba(236, 72, 153, 0.7));
-      transform: scaleX(0);
-      transform-origin: left;
-      z-index: 60;
-      box-shadow: 0 0 12px rgba(139, 92, 246, 0.45);
-    }
-
-    [data-nav-surface] {
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
-    }
-
-    [data-nav-surface].is-scrolled {
-      background-color: rgba(0, 0, 0, 0.65);
-      border-color: rgba(139, 92, 246, 0.35);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(14px);
-    }
-
-    .axora-reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      filter: blur(6px);
-      transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
-    }
-
-    .axora-reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-    }
-
-    .axora-section {
-      isolation: isolate;
-    }
-
-    .axora-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: min(92%, 1100px);
-      height: 1px;
-      transform: translateX(-50%);
-      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
-      opacity: 0.7;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .axora-card {
-      --tw-scale-x: 1;
-      --tw-scale-y: 1;
-      transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-      will-change: transform;
-    }
-
-    .axora-card:hover {
-      --tw-scale-x: 1.01;
-      --tw-scale-y: 1.01;
-      box-shadow: 0 18px 40px rgba(139, 92, 246, 0.15);
-      border-color: rgba(139, 92, 246, 0.6);
-    }
-
-    .axora-cta {
-      transition: box-shadow 0.3s ease, filter 0.3s ease;
-    }
-
-    .axora-cta:hover {
-      box-shadow: 0 0 25px rgba(139, 92, 246, 0.45);
-      filter: brightness(1.05);
-    }
-
-    .axora-input:focus {
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
-    }
-
-    .axora-carousel-track {
-      display: flex;
-      gap: 1.5rem;
-      transition: transform 0.5s ease;
-      will-change: transform;
-    }
-
-    .axora-carousel-item {
-      flex: 0 0 100%;
-    }
-
-    @media (min-width: 640px) {
-      .axora-carousel-item {
-        flex-basis: 50%;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .axora-carousel-item {
-        flex-basis: 33.3333%;
-      }
-    }
-
-    .axora-carousel-btn {
-      height: 40px;
-      width: 40px;
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(0, 0, 0, 0.35);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .axora-carousel-btn:hover {
-      background: rgba(139, 92, 246, 0.35);
-      border-color: rgba(139, 92, 246, 0.7);
-      transform: translateY(-2px);
-    }
-
-    .axora-dot {
-      height: 8px;
-      width: 8px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.3);
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .axora-dot.is-active {
-      background: rgba(139, 92, 246, 0.9);
-      transform: scale(1.25);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .axora-reveal {
-        transition: none;
-        transform: none;
-        filter: none;
-        opacity: 1;
-      }
-
-      .axora-carousel-track {
-        transition: none;
-      }
-    }
-  </style>
 </head>
 
 <body class="bg-black text-white">
   <div class="axora-scroll-progress" data-scroll-progress aria-hidden="true"></div>
 
-  <!-- HEADER / NAVBAR -->
-  <div class="bg-[url(../img/cielogalaxiamoradagrande.jpg)] bg-cover bg-center lg:h-full lg:w-full">
-    <header class="fixed top-0 left-0 w-full z-50" data-navbar>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-6">
-        <div
-          data-nav-surface class="relative rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
+  <div class="bg-[url(./img/cielogalaxiamoradagrande.jpg)] bg-cover bg-center lg:h-full lg:w-full">
+    <header class="fixed top-0 left-0 z-50 w-full" data-navbar>
+      <div class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-12">
+        <div data-nav-surface
+          class="relative rounded-2xl border border-white/10 bg-black/25 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
           <div class="absolute inset-x-6 -bottom-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent">
           </div>
-          <nav aria-label="Principal" class="px-4 sm:px-6 py-4 flex items-center gap-8 lg:justify-between justify-around">
-
-            <!-- LOGO -->
-            <div class="flex items-center">
-              <img
-                src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
+          <nav aria-label="Principal" class="flex items-center justify-between gap-6 px-4 py-4 sm:px-6">
+            <a href="index.html#inicio" class="flex items-center gap-3">
+              <img src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
                 alt="Axora Agency" class="w-32 lg:w-52">
-            </div>
-            <!-- MENU DESKTOP -->
-            <ul class="hidden md:flex items-center gap-8 text-white font-medium lg:text-lg">
-              <li>
-                <a href="index.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Inicio</a>
+            </a>
+
+            <ul class="hidden items-center gap-8 text-sm font-medium text-white md:flex lg:text-base">
+              <li><a href="index.html#inicio"
+                  class="relative transition-colors duration-300 hover:text-violet-300 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-violet-400 after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100">Inicio</a>
               </li>
-              <li>
-                <a href="soluciones.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Soluciones</a>
+              <li><a href="index.html#soluciones"
+                  class="relative transition-colors duration-300 hover:text-violet-300 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-violet-400 after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100">Soluciones</a>
               </li>
-              <li>
-                <a href="proceso.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Como trabajamos</a>
+              <li><a href="index.html#proceso"
+                  class="relative transition-colors duration-300 hover:text-violet-300 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-violet-400 after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100">Cómo
+                  trabajamos</a></li>
+              <li><a href="index.html#proyectos"
+                  class="relative transition-colors duration-300 hover:text-violet-300 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-violet-400 after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100">Proyectos</a>
               </li>
-              <li>
-                <a href="proyectos.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Proyectos</a>
-              </li>
-              <li>
-                <a href="contacto.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Contacto</a>
+              <li><a href="contacto.html#inicio"
+                  class="relative transition-colors duration-300 hover:text-violet-300 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-violet-400 after:transition-transform after:duration-300 after:content-[''] hover:after:scale-x-100">Contacto</a>
               </li>
             </ul>
 
-            <!-- CTA DESKTOP -->
-            <div class="hidden lg:flex items-center text-center">
-              <a href="contacto.html#inicio"
-                class="px-6 py-3 rounded-full border border-violet-500 text-white bg-black/40 hover:bg-violet-600/80 hover:border-violet-600 transition-colors duration-300 shadow-[0_0_15px_rgba(139,92,246,0.4)]">
+            <div class="hidden lg:flex">
+              <a href="contacto.html#formulario"
+                class="axora-cta inline-flex items-center justify-center rounded-full border border-violet-400/70 bg-black/35 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-violet-300 hover:bg-violet-600/70">
                 Diagnóstico gratuito
               </a>
             </div>
 
-            <!-- BOTON MOBILE -->
-            <button class="md:hidden text-white focus:outline-none menu-btn" data-menu-btn aria-expanded="false"
-              aria-controls="mobile-menu">
-              <span class="sr-only">Abrir menu</span>
-              <span class="block h-0.5 w-8 bg-white rounded menu-line line-1"></span>
-              <span class="block h-0.5 w-8 bg-white rounded menu-line line-2 mt-2"></span>
-              <span class="block h-0.5 w-8 bg-white rounded menu-line line-3 mt-2"></span>
+            <button class="menu-btn text-white md:hidden" data-menu-btn aria-expanded="false" aria-controls="mobile-menu">
+              <span class="sr-only">Abrir menú</span>
+              <span class="menu-line line-1 block h-0.5 w-8 rounded bg-white"></span>
+              <span class="menu-line line-2 mt-2 block h-0.5 w-8 rounded bg-white"></span>
+              <span class="menu-line line-3 mt-2 block h-0.5 w-8 rounded bg-white"></span>
             </button>
-
           </nav>
+
           <div id="mobile-menu" data-menu-panel
-            class="menu-panel md:hidden px-4 pb-5 pt-2 space-y-3 text-white/90 bg-black/40 border-t border-white/10 transition-all duration-300 opacity-0 -translate-y-2 pointer-events-none">
-            <a href="index.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Inicio</a>
-            <a href="soluciones.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Soluciones</a>
-            <a href="proceso.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Como trabajamos</a>
-            <a href="proyectos.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Proyectos</a>
-            <a href="contacto.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Contacto</a>
-            <a href="contacto.html#inicio"
-              class="mt-2 inline-flex items-center justify-center w-full px-6 py-3 rounded-full border border-violet-500 text-white bg-violet-600/80 hover:bg-violet-600 transition-colors duration-300">
-              Diagnóstico gratuito
+            class="menu-panel pointer-events-none border-t border-white/10 bg-black/70 px-4 pb-5 pt-2 text-white/90 opacity-0 -translate-y-2 transition-all duration-300 md:hidden">
+            <div class="space-y-2">
+              <a href="index.html#inicio" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Inicio</a>
+              <a href="index.html#soluciones" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Soluciones</a>
+              <a href="index.html#proceso" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Cómo trabajamos</a>
+              <a href="index.html#proyectos" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Proyectos</a>
+              <a href="contacto.html#inicio" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Contacto</a>
+            </div>
+            <a href="contacto.html#formulario"
+              class="mt-4 inline-flex w-full items-center justify-center rounded-full border border-violet-400/70 bg-violet-600/85 px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-violet-500">
+              Solicitar diagnóstico
             </a>
           </div>
         </div>
@@ -266,57 +78,91 @@
     </header>
 
     <main>
-      <!-- HERO -->
       <section id="inicio" class="relative min-h-[90vh] lg:min-h-screen">
-        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+        <video class="absolute inset-0 h-full w-full object-cover opacity-35" muted loop autoplay playsinline
           src="img/videogalaxia.mp4"></video>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80"></div>
-        <div class="relative z-10 px-6 pt-44 pb-14 sm:pt-52 lg:pt-40 lg:pb-20">
-          <div class="max-w-7xl mx-auto grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div class="space-y-7 mt-20 lg:mt-70">
-              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
-                Impulsamos negocios locales hacia el mundo digital
-              </h1>
-              <p class="text-base sm:text-lg text-white/80 max-w-xl">
-                Ayudamos a pequeñas y medianas empresas a modernizar su presencia online con webs, automatización y contenido estratégico.
-              </p>
-              <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#contacto"
-                  class="inline-flex items-center justify-center px-9 py-3 rounded-full border border-violet-500 bg-violet-600/90 hover:bg-violet-600 hover:border-violet-400 transition-all duration-300 shadow-[0_0_15px_rgba(139,92,246,0.4)] hover:-translate-y-1">
-                  Solicitar diagnóstico digital
+        <div class="axora-hero-grid absolute inset-0"></div>
+        <div class="axora-hero-orb left-[8%] top-32 h-40 w-40 bg-violet-500/35"></div>
+        <div class="axora-hero-orb is-delayed right-[10%] top-52 h-32 w-32 bg-fuchsia-400/20"></div>
+        <div class="axora-hero-orb is-slow bottom-20 right-[22%] h-48 w-48 bg-violet-600/18"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/70 to-black/90"></div>
+
+        <div class="relative z-10 px-6 pb-14 pt-44 sm:pt-52 lg:pb-20 lg:pt-40">
+          <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+            <div class="space-y-8 mt-20 lg:mt-70">
+             
+              <div class="max-w-3xl space-y-5">
+                <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-7xl">
+                  Convierte tu presencia digital en una máquina de confianza y ventas.
+                </h1>
+                <p class="max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
+                  Diseñamos webs claras, automatizaciones ligeras y contenido con intención para que un negocio local se vea serio, responda rápido y convierta mejor.
+                </p>
+              </div>
+              <div class="flex flex-col gap-4 sm:flex-row">
+                <a href="contacto.html#formulario"
+                  class="axora-cta inline-flex items-center justify-center rounded-full border border-violet-400 bg-violet-600/90 px-9 py-3.5 font-semibold text-white shadow-[0_0_20px_rgba(139,92,246,0.35)] transition-all duration-300 hover:-translate-y-1 hover:bg-violet-500">
+                  Solicitar diagnóstico
                 </a>
                 <a href="#soluciones"
-                  class="inline-flex items-center justify-center px-9 py-3 rounded-full border border-white/20 bg-black/30 hover:bg-black/50 transition-all duration-300 hover:-translate-y-1">
+                  class="axora-cta inline-flex items-center justify-center rounded-full border border-white/15 bg-black/35 px-9 py-3.5 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/8">
                   Ver soluciones
                 </a>
               </div>
-              <div class="grid grid-cols-3 gap-3 max-w-md">
-                <div
-                  class="rounded-xl border border-white/10 bg-black/30 py-2.5 text-center text-xs sm:text-sm text-white/80 backdrop-blur">SEO local</div>
-                <div
-                  class="rounded-xl border border-white/10 bg-black/30 py-2.5 text-center text-xs sm:text-sm text-white/80 backdrop-blur">Chatbots</div>
-                <div
-                  class="rounded-xl border border-white/10 bg-black/30 py-2.5 text-center text-xs sm:text-sm text-white/80 backdrop-blur">Contenido</div>
+              <div class="grid max-w-2xl gap-3 sm:grid-cols-3">
+                <div class="rounded-2xl border border-white/10 bg-black/35 px-4 py-4 backdrop-blur">
+                  <p class="text-xs uppercase tracking-[0.26em] text-white/45">Tiempo</p>
+                  <p class="mt-2 text-sm font-semibold text-white">Respuesta y captación más rápidas</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-black/35 px-4 py-4 backdrop-blur">
+                  <p class="text-xs uppercase tracking-[0.26em] text-white/45">Presencia</p>
+                  <p class="mt-2 text-sm font-semibold text-white">Web, Google y mensaje alineados</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-black/35 px-4 py-4 backdrop-blur">
+                  <p class="text-xs uppercase tracking-[0.26em] text-white/45">Escala</p>
+                  <p class="mt-2 text-sm font-semibold text-white">Automatización útil sin complejidad</p>
+                </div>
               </div>
             </div>
+
             <div class="relative">
-              <div class="absolute -top-6 -left-6 h-40 w-40 rounded-full bg-violet-500/20 blur-3xl"></div>
-              <div class="absolute -bottom-6 -right-6 h-40 w-40 rounded-full bg-violet-400/20 blur-3xl"></div>
-              <div class="grid gap-5">
-                <div
-                  class="rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-                  <p class="text-white/70 text-xs uppercase tracking-widest">Presencia digital</p>
-                  <p class="text-lg font-semibold mt-2">Web moderna + Google optimizado</p>
-                </div>
-                <div
-                  class="rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-                  <p class="text-white/70 text-xs uppercase tracking-widest">Automatización</p>
-                  <p class="text-lg font-semibold mt-2">Respuestas 24/7 sin esfuerzo</p>
-                </div>
-                <div
-                  class="rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-                  <p class="text-white/70 text-xs uppercase tracking-widest">Crecimiento</p>
-                  <p class="text-lg font-semibold mt-2">Contenido que genera consultas</p>
+              <div class="absolute -left-6 -top-6 h-32 w-32 rounded-full bg-violet-500/20 blur-3xl"></div>
+              <div class="absolute -bottom-8 -right-6 h-40 w-40 rounded-full bg-fuchsia-500/15 blur-3xl"></div>
+              <div class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black/40 p-6 shadow-[0_20px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:p-8">
+                <div class="grid gap-4">
+                  <div class="rounded-3xl border border-violet-400/20 bg-white/[0.03] p-5">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.24em] text-violet-200/80">Diagnóstico</p>
+                        <p class="mt-2 text-xl font-semibold">Visión clara desde la primera llamada</p>
+                      </div>
+                      <div class="rounded-2xl border border-violet-400/20 bg-violet-500/10 px-3 py-2 text-sm font-medium text-violet-100">
+                        72h
+                      </div>
+                    </div>
+                    <p class="mt-4 text-sm leading-7 text-white/68">
+                      Detectamos fricción en captación, contenido y atención para priorizar lo que de verdad mueve negocio.
+                    </p>
+                  </div>
+                  <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="rounded-3xl border border-white/10 bg-black/35 p-5">
+                      <p class="text-xs uppercase tracking-[0.24em] text-white/45">Web + SEO local</p>
+                      <p class="mt-2 text-lg font-semibold">Más claridad para quien ya te está buscando</p>
+                    </div>
+                    <div class="rounded-3xl border border-white/10 bg-black/35 p-5">
+                      <p class="text-xs uppercase tracking-[0.24em] text-white/45">Automatización</p>
+                      <p class="mt-2 text-lg font-semibold">Respuestas, reservas y seguimiento sin fricción</p>
+                    </div>
+                  </div>
+                  <div class="rounded-3xl border border-white/10 bg-gradient-to-r from-violet-500/15 to-fuchsia-500/10 p-5">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <p class="text-xs uppercase tracking-[0.24em] text-white/45">Objetivo final</p>
+                        <p class="mt-2 text-lg font-semibold">Que tu negocio se vea premium aunque todavía esté creciendo</p>
+                      </div>
+                      <span class="rounded-full border border-white/10 px-3 py-1 text-sm text-white/65">Nos adaptamos a ti</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -324,152 +170,281 @@
         </div>
       </section>
 
-      <!-- PROBLEMA -->
       <section class="relative px-6 py-16 lg:py-28">
-        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+        <video class="absolute inset-0 h-full w-full object-cover opacity-40" muted loop autoplay playsinline
           src="img/videogalaxia.mp4"></video>
         <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90"></div>
-        <div class="relative max-w-6xl mx-auto space-y-10">
-          <div class="text-center space-y-4">
-            <h2 class="text-3xl lg:text-5xl font-semibold">Muchos negocios locales aún son invisibles online</h2>
-            <p class="text-white/70 max-w-2xl mx-auto">Detecta los bloqueos principales y empieza a corregirlos hoy.</p>
+        <div class="relative mx-auto max-w-6xl space-y-10">
+          <div class="space-y-4 text-center">
+            <h2 class="text-3xl font-semibold lg:text-5xl">Muchos negocios locales ya tienen demanda, pero no una experiencia digital que la aproveche.</h2>
+            <p class="mx-auto max-w-2xl text-white/70">Estos son los puntos donde más se pierde confianza antes incluso de hablar con el cliente.</p>
           </div>
           <div class="grid gap-6 lg:grid-cols-3">
-            <div
-              class="flex gap-4 rounded-2xl border border-violet-500/30 bg-black/40 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-              <div class="h-12 w-12 rounded-xl bg-violet-500/20 flex items-center justify-center font-semibold">01</div>
-              <div>
-                <p class="text-violet-400 font-semibold">No hay una web clara</p>
-                <p class="text-white/70 mt-2">Te buscan, pero no encuentran información confiable ni formas de contacto rápidas.</p>
-              </div>
-            </div>
-            <div
-              class="flex gap-4 rounded-2xl border border-violet-500/30 bg-black/40 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-              <div class="h-12 w-12 rounded-xl bg-violet-500/20 flex items-center justify-center font-semibold">02</div>
-              <div>
-                <p class="text-violet-400 font-semibold">Redes sin rumbo</p>
-                <p class="text-white/70 mt-2">Publicar sin enfoque no se traduce en ventas ni reservas.</p>
-              </div>
-            </div>
-            <div
-              class="flex gap-4 rounded-2xl border border-violet-500/30 bg-black/40 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-              <div class="h-12 w-12 rounded-xl bg-violet-500/20 flex items-center justify-center font-semibold">03</div>
-              <div>
-                <p class="text-violet-400 font-semibold">Atención repetitiva</p>
-                <p class="text-white/70 mt-2">Preguntas frecuentes que deberían resolverse solas.</p>
-              </div>
-            </div>
+            <article class="axora-card rounded-3xl border border-violet-500/25 bg-black/40 p-6 backdrop-blur">
+              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/30 bg-violet-500/15 text-sm font-semibold text-violet-100">01</div>
+              <h3 class="text-lg font-semibold text-violet-300">No hay una web clara</h3>
+              <p class="mt-3 leading-7 text-white/70">Te buscan, pero no encuentran una propuesta sólida, pruebas de confianza ni un camino claro para contactar.</p>
+            </article>
+            <article class="axora-card rounded-3xl border border-violet-500/25 bg-black/40 p-6 backdrop-blur">
+              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/30 bg-violet-500/15 text-sm font-semibold text-violet-100">02</div>
+              <h3 class="text-lg font-semibold text-violet-300">Las redes no convierten</h3>
+              <p class="mt-3 leading-7 text-white/70">Publicar sin una narrativa, sin CTA y sin cohesión visual genera ruido, no oportunidades reales.</p>
+            </article>
+            <article class="axora-card rounded-3xl border border-violet-500/25 bg-black/40 p-6 backdrop-blur">
+              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/30 bg-violet-500/15 text-sm font-semibold text-violet-100">03</div>
+              <h3 class="text-lg font-semibold text-violet-300">Todo depende de estar pendiente</h3>
+              <p class="mt-3 leading-7 text-white/70">Responder lo mismo una y otra vez desgasta al equipo y ralentiza reservas, ventas y seguimiento.</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- SOLUCIONES -->
       <section id="soluciones" class="relative px-6 py-20 lg:py-28">
-        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+        <video class="absolute inset-0 h-full w-full object-cover opacity-40" muted loop autoplay playsinline
           src="img/videogalaxia.mp4"></video>
-        <div class="absolute inset-0 bg-gradient-to-r from-violet-700/50 via-violet-600/40 to-black/80"></div>
-        <div class="relative max-w-6xl mx-auto space-y-12">
-          <div class="text-center space-y-5">
-            <h2 class="text-3xl lg:text-5xl font-semibold">Soluciones digitales para negocios reales</h2>
-            <p class="text-white/80 max-w-2xl mx-auto">Servicios pensados para modernizar tu presencia online y generar confianza.</p>
+        <div class="absolute inset-0 bg-gradient-to-r from-violet-700/45 via-violet-600/20 to-black/85"></div>
+        <div class="relative mx-auto max-w-6xl space-y-12">
+          <div class="space-y-5 text-center">
+            <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Nuestras Soluciones Para Ti</p>
+            <h2 class="text-3xl font-semibold lg:text-5xl">Paquetes de impacto visual, operativo y comercial.</h2>
+            <p class="mx-auto max-w-2xl text-white/78">Cada servicio está pensado para verse actual, sentirse premium y mover una métrica concreta del negocio.</p>
           </div>
           <div class="grid gap-6 md:grid-cols-2">
-            <div
-              class="rounded-3xl border border-violet-500/40 bg-black/40 p-8 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/70 hover:shadow-lg">
-              <p class="text-xs uppercase tracking-widest text-white/70">Web</p>
-              <h3 class="text-xl font-semibold mt-2">Diseño de páginas web</h3>
-              <p class="text-white/80 mt-2">Creamos webs modernas que transmiten confianza y convierten visitas en clientes.</p>
-            </div>
-            <div
-              class="rounded-3xl border border-violet-500/40 bg-black/40 p-8 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/70 hover:shadow-lg">
-              <p class="text-xs uppercase tracking-widest text-white/70">Menús</p>
-              <h3 class="text-xl font-semibold mt-2">Digitalización de menús</h3>
-              <p class="text-white/80 mt-2">Convierte tu carta física en una experiencia digital accesible desde cualquier móvil.</p>
-            </div>
-            <div
-              class="rounded-3xl border border-white/10 bg-black/30 p-8 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/50 hover:shadow-lg">
-              <p class="text-xs uppercase tracking-widest text-white/70">Automatización</p>
-              <h3 class="text-xl font-semibold mt-2">Automatización con chatbots</h3>
-              <p class="text-white/70 mt-2">Responde automáticamente a preguntas frecuentes y ahorra tiempo en atención al cliente.</p>
-            </div>
-            <div
-              class="rounded-3xl border border-white/10 bg-black/30 p-8 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/50 hover:shadow-lg">
-              <p class="text-xs uppercase tracking-widest text-white/70">Redes</p>
-              <h3 class="text-xl font-semibold mt-2">Gestión de redes sociales</h3>
-              <p class="text-white/70 mt-2">Contenido estratégico que posiciona tu negocio y genera confianza.</p>
-            </div>
+            <article class="axora-card axora-glow-card rounded-[1.75rem] border border-violet-500/30 bg-black/45 p-8 backdrop-blur">
+              <div class="flex items-start justify-between gap-4">
+                <div class="axora-solution-icon h-14 w-14">
+                  <svg viewBox="0 0 24 24" class="h-6 w-6 text-violet-100" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M4 5h16v10H4z" />
+                    <path d="M8 19h8" />
+                    <path d="M10 15h4v4h-4z" />
+                  </svg>
+                </div>
+                <span class="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-white/55">Web</span>
+              </div>
+              <h3 class="mt-6 text-2xl font-semibold">Landing y web comercial</h3>
+              <p class="mt-3 text-white/72">Diseño orientado a credibilidad, estructura de venta y una experiencia móvil que no parece improvisada.</p>
+              <ul class="mt-6 space-y-3 text-sm text-white/65">
+                <li>Arquitectura enfocada en conversión</li>
+                <li>Copy claro para captar en segundos</li>
+                <li>Base preparada para SEO local</li>
+              </ul>
+            </article>
+
+            <article class="axora-card axora-glow-card rounded-[1.75rem] border border-violet-500/30 bg-black/45 p-8 backdrop-blur">
+              <div class="flex items-start justify-between gap-4">
+                <div class="axora-solution-icon h-14 w-14">
+                  <svg viewBox="0 0 24 24" class="h-6 w-6 text-violet-100" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M7 7h10" />
+                    <path d="M7 12h6" />
+                    <path d="M7 17h10" />
+                    <rect x="4" y="4" width="16" height="16" rx="3" />
+                  </svg>
+                </div>
+                <span class="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-white/55">Experiencia</span>
+              </div>
+              <h3 class="mt-6 text-2xl font-semibold">Menús y catálogos digitales</h3>
+              <p class="mt-3 text-white/72">Versiones rápidas, elegantes y fáciles de actualizar para restaurantes, clínicas o servicios con oferta cambiante.</p>
+              <ul class="mt-6 space-y-3 text-sm text-white/65">
+                <li>Lectura cómoda en móvil</li>
+                <li>Acceso por QR y enlaces rápidos</li>
+                <li>Presentación más profesional al instante</li>
+              </ul>
+            </article>
+
+            <article class="axora-card axora-glow-card rounded-[1.75rem] border border-white/10 bg-black/38 p-8 backdrop-blur">
+              <div class="flex items-start justify-between gap-4">
+                <div class="axora-solution-icon h-14 w-14">
+                  <svg viewBox="0 0 24 24" class="h-6 w-6 text-violet-100" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M8 10h8" />
+                    <path d="M8 14h5" />
+                    <path d="M6 5h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-5l-4 3v-3H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" />
+                  </svg>
+                </div>
+                <span class="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-white/55">Automatización</span>
+              </div>
+              <h3 class="mt-6 text-2xl font-semibold">Chatbots y respuestas útiles</h3>
+              <p class="mt-3 text-white/72">Automatizamos preguntas frecuentes, derivaciones y primeros contactos sin romper la cercanía del negocio.</p>
+              <ul class="mt-6 space-y-3 text-sm text-white/65">
+                <li>Menos carga operativa manual</li>
+                <li>Mejor tiempo de respuesta</li>
+                <li>Seguimiento básico sin perder leads</li>
+              </ul>
+            </article>
+
+            <article class="axora-card axora-glow-card rounded-[1.75rem] border border-white/10 bg-black/38 p-8 backdrop-blur">
+              <div class="flex items-start justify-between gap-4">
+                <div class="axora-solution-icon h-14 w-14">
+                  <svg viewBox="0 0 24 24" class="h-6 w-6 text-violet-100" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M4 18c2.5-1 4.5-2.5 6-4.5C11.5 11.5 12 9 12 6" />
+                    <path d="M20 18c-2.5-1-4.5-2.5-6-4.5C12.5 11.5 12 9 12 6" />
+                    <path d="M8 18h8" />
+                  </svg>
+                </div>
+                <span class="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-white/55">Contenido</span>
+              </div>
+              <h3 class="mt-6 text-2xl font-semibold">Contenido y presencia social</h3>
+              <p class="mt-3 text-white/72">Construimos una línea visual y de mensaje que haga que la marca se recuerde y se perciba estable.</p>
+              <ul class="mt-6 space-y-3 text-sm text-white/65">
+                <li>Mensajes más claros para cada oferta</li>
+                <li>Más consistencia entre canales</li>
+                <li>CTA mejor integrados en la experiencia</li>
+              </ul>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- PROCESO -->
       <section id="proceso" class="relative px-6 py-16 lg:py-24">
-        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+        <video class="absolute inset-0 h-full w-full object-cover opacity-40" muted loop autoplay playsinline
           src="img/videogalaxia.mp4"></video>
         <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/90 to-black"></div>
-        <div class="relative max-w-6xl mx-auto space-y-10">
-          <div class="text-center space-y-4">
-            <h2 class="text-3xl lg:text-5xl font-semibold">Un proceso claro para modernizar tu negocio</h2>
-            <p class="text-white/70 max-w-2xl mx-auto">Trabajamos en pasos concretos para que avances con claridad y resultados.</p>
+        <div class="relative mx-auto max-w-6xl space-y-10">
+          <div class="space-y-4 text-center">
+            <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Cómo trabajamos</p>
+            <h2 class="text-3xl font-semibold lg:text-5xl">Un proceso visual, simple y fácil de seguir.</h2>
+            <p class="mx-auto max-w-2xl text-white/70">Tres pasos para pasar de una presencia dispersa a una experiencia digital que transmite seguridad.</p>
           </div>
-          <div class="relative">
 
-            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <div
-                class="rounded-2xl border border-white/10 bg-black/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-                <p class="text-violet-400 font-semibold">1. Diagnóstico digital</p>
-                <p class="text-white/70 mt-2">Analizamos la presencia online de tu negocio y detectamos oportunidades.</p>
-              </div>
-              <div
-                class="rounded-2xl border border-white/10 bg-black/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-                <p class="text-violet-400 font-semibold">2. Estrategia</p>
-                <p class="text-white/70 mt-2">Definimos qué herramientas digitales realmente necesita tu negocio.</p>
-              </div>
-              <div
-                class="rounded-2xl border border-white/10 bg-black/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-                <p class="text-violet-400 font-semibold">3. Implementación</p>
-                <p class="text-white/70 mt-2">Creamos tu presencia digital y configuramos las herramientas necesarias.</p>
-              </div>
-              <div
-                class="rounded-2xl border border-white/10 bg-black/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60">
-                <p class="text-violet-400 font-semibold">4. Optimización</p>
-                <p class="text-white/70 mt-2">Mejoramos continuamente tu presencia digital para generar mejores resultados.</p>
-              </div>
+          <div class="relative">
+            <div class="axora-process-line" aria-hidden="true"></div>
+            <div class="grid gap-6 lg:grid-cols-3">
+              <article class="axora-card relative rounded-[1.75rem] border border-white/10 bg-black/40 p-7 backdrop-blur">
+                <div class="axora-process-icon h-16 w-16">
+                  <svg viewBox="0 0 24 24" class="h-7 w-7 text-violet-100" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="11" cy="11" r="6" />
+                    <path d="m20 20-3.5-3.5" />
+                  </svg>
+                </div>
+                <div class="mt-6 space-y-3">
+                  <p class="text-sm uppercase tracking-[0.3em] text-violet-300/70">Paso 1</p>
+                  <h3 class="text-2xl font-semibold">Diagnóstico</h3>
+                  <p class="text-white/70">Auditamos presencia, propuesta y fricción comercial para detectar qué está frenando visibilidad o conversión.</p>
+                </div>
+              </article>
+
+              <article class="axora-card relative rounded-[1.75rem] border border-white/10 bg-black/40 p-7 backdrop-blur">
+                <div class="axora-process-icon h-16 w-16">
+                  <svg viewBox="0 0 24 24" class="h-7 w-7 text-violet-100" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M5 12h14" />
+                    <path d="M12 5v14" />
+                    <rect x="4" y="4" width="16" height="16" rx="3" />
+                  </svg>
+                </div>
+                <div class="mt-6 space-y-3">
+                  <p class="text-sm uppercase tracking-[0.3em] text-violet-300/70">Paso 2</p>
+                  <h3 class="text-2xl font-semibold">Implementación</h3>
+                  <p class="text-white/70">Diseñamos, construimos y conectamos las piezas clave para que la experiencia se sienta más premium y funcional.</p>
+                </div>
+              </article>
+
+              <article class="axora-card relative rounded-[1.75rem] border border-white/10 bg-black/40 p-7 backdrop-blur">
+                <div class="axora-process-icon h-16 w-16">
+                  <svg viewBox="0 0 24 24" class="h-7 w-7 text-violet-100" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M4 14c1.5 3 4.2 5 8 5 4.5 0 8-3.5 8-8" />
+                    <path d="M20 10c-1.5-3-4.2-5-8-5-4.5 0-8 3.5-8 8" />
+                    <path d="m17 7 3 3-3 3" />
+                    <path d="m7 17-3-3 3-3" />
+                  </svg>
+                </div>
+                <div class="mt-6 space-y-3">
+                  <p class="text-sm uppercase tracking-[0.3em] text-violet-300/70">Paso 3</p>
+                  <h3 class="text-2xl font-semibold">Optimización</h3>
+                  <p class="text-white/70">Medimos, simplificamos y afinamos mensajes, interacciones y rendimiento para que el sistema siga mejorando.</p>
+                </div>
+              </article>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- PROYECTOS -->
       <section id="proyectos" class="relative px-6 py-16 lg:py-24">
-        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+        <video class="absolute inset-0 h-full w-full object-cover opacity-40" muted loop autoplay playsinline
           src="img/videogalaxia.mp4"></video>
-        <div class="absolute inset-0 bg-gradient-to-r from-violet-700/50 via-violet-600/40 to-black/80"></div>
-        <div class="relative max-w-6xl mx-auto space-y-10">
-          <div class="text-center space-y-4">
-            <h2 class="text-3xl lg:text-5xl font-semibold">Proyectos y ejemplos de transformación digital</h2>
-            <p class="text-white/80">Casos reales y demos que muestran el impacto visual y funcional.</p>
+        <div class="absolute inset-0 bg-gradient-to-r from-violet-700/50 via-violet-600/18 to-black/85"></div>
+        <div class="relative mx-auto max-w-6xl space-y-10">
+          <div class="space-y-4 text-center">
+            <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Proyectos</p>
+            <h2 class="text-3xl font-semibold lg:text-5xl">Ejemplos que muestran el nivel visual y estratégico que puede tener tu marca.</h2>
+            <p class="mx-auto max-w-2xl text-white/78">Un carrusel pensado para explorar propuestas, no solo listar servicios.</p>
           </div>
+
           <div class="relative" data-carousel>
             <div class="overflow-hidden">
               <div class="axora-carousel-track" data-carousel-track>
-                <div class="axora-carousel-item rounded-2xl border border-white/10 bg-black/30 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60" data-carousel-item>
-                  <div class="h-32 rounded-xl bg-gradient-to-r from-violet-500/30 to-transparent mb-4"></div>
-                  <p class="text-violet-400 font-semibold">Restaurante local</p>
-                  <p class="text-white/80 mt-2">Menú digital + reservas automatizadas.</p>
-                </div>
-                <div class="axora-carousel-item rounded-2xl border border-white/10 bg-black/30 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60" data-carousel-item>
-                  <div class="h-32 rounded-xl bg-gradient-to-r from-violet-500/30 to-transparent mb-4"></div>
-                  <p class="text-violet-400 font-semibold">Clínica dental</p>
-                  <p class="text-white/80 mt-2">Web moderna + captación de pacientes.</p>
-                </div>
-                <div class="axora-carousel-item rounded-2xl border border-white/10 bg-black/30 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-violet-500/60" data-carousel-item>
-                  <div class="h-32 rounded-xl bg-gradient-to-r from-violet-500/30 to-transparent mb-4"></div>
-                  <p class="text-violet-400 font-semibold">Tienda retail</p>
-                  <p class="text-white/80 mt-2">Automatización de consultas frecuentes.</p>
-                </div>
+                <article
+                  class="axora-card axora-project-card axora-glow-card axora-carousel-item rounded-[1.75rem] border border-white/10 bg-black/35 p-6 backdrop-blur"
+                  data-carousel-item>
+                  <div class="axora-project-preview mb-5 h-44 rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-violet-500/35 via-violet-500/10 to-black/30">
+                    <div class="absolute inset-x-4 top-4 flex items-center justify-between">
+                      <span class="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-xs text-white/60">Restaurant UX</span>
+                      <span class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/60">Reservas</span>
+                    </div>
+                    <div class="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/40 p-4">
+                      <p class="text-sm text-white/55">Vista previa</p>
+                      <p class="mt-2 text-lg font-semibold">Carta QR + reservas automatizadas</p>
+                    </div>
+                  </div>
+                  <p class="text-sm uppercase tracking-[0.24em] text-violet-300/70">Bistro Norte</p>
+                  <h3 class="mt-3 text-2xl font-semibold">Experiencia premium para un restaurante local</h3>
+                  <p class="mt-3 text-white/70">Un flujo que reduce preguntas repetidas y ayuda a cerrar la reserva en menos pasos.</p>
+                </article>
+
+                <article
+                  class="axora-card axora-project-card axora-glow-card axora-carousel-item rounded-[1.75rem] border border-white/10 bg-black/35 p-6 backdrop-blur"
+                  data-carousel-item>
+                  <div class="axora-project-preview mb-5 h-44 rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-cyan-500/18 via-violet-500/18 to-black/30">
+                    <div class="absolute inset-x-4 top-4 flex items-center justify-between">
+                      <span class="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-xs text-white/60">Health</span>
+                      <span class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/60">Captación</span>
+                    </div>
+                    <div class="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/40 p-4">
+                      <p class="text-sm text-white/55">Vista previa</p>
+                      <p class="mt-2 text-lg font-semibold">Landing con agenda y prueba social</p>
+                    </div>
+                  </div>
+                  <p class="text-sm uppercase tracking-[0.24em] text-violet-300/70">Clínica Dental</p>
+                  <h3 class="mt-3 text-2xl font-semibold">Más claridad antes de la primera cita</h3>
+                  <p class="mt-3 text-white/70">Jerarquía fuerte, mensajes de confianza y CTA visibles para aumentar contactos cualificados.</p>
+                </article>
+
+                <article
+                  class="axora-card axora-project-card axora-glow-card axora-carousel-item rounded-[1.75rem] border border-white/10 bg-black/35 p-6 backdrop-blur"
+                  data-carousel-item>
+                  <div class="axora-project-preview mb-5 h-44 rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-amber-500/20 via-violet-500/15 to-black/30">
+                    <div class="absolute inset-x-4 top-4 flex items-center justify-between">
+                      <span class="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-xs text-white/60">Retail</span>
+                      <span class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/60">Soporte</span>
+                    </div>
+                    <div class="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/40 p-4">
+                      <p class="text-sm text-white/55">Vista previa</p>
+                      <p class="mt-2 text-lg font-semibold">FAQ inteligente y seguimiento</p>
+                    </div>
+                  </div>
+                  <p class="text-sm uppercase tracking-[0.24em] text-violet-300/70">Tienda Retail</p>
+                  <h3 class="mt-3 text-2xl font-semibold">Menos carga manual, más tiempo para vender</h3>
+                  <p class="mt-3 text-white/70">Automatización ligera para resolver dudas frecuentes y derivar contactos al canal adecuado.</p>
+                </article>
+
+                <article
+                  class="axora-card axora-project-card axora-glow-card axora-carousel-item rounded-[1.75rem] border border-white/10 bg-black/35 p-6 backdrop-blur"
+                  data-carousel-item>
+                  <div class="axora-project-preview mb-5 h-44 rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-fuchsia-500/25 via-violet-500/12 to-black/30">
+                    <div class="absolute inset-x-4 top-4 flex items-center justify-between">
+                      <span class="rounded-full border border-white/10 bg-black/35 px-3 py-1 text-xs text-white/60">Brand</span>
+                      <span class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/60">Contenido</span>
+                    </div>
+                    <div class="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/40 p-4">
+                      <p class="text-sm text-white/55">Vista previa</p>
+                      <p class="mt-2 text-lg font-semibold">Sistema visual para redes y web</p>
+                    </div>
+                  </div>
+                  <p class="text-sm uppercase tracking-[0.24em] text-violet-300/70">Estudio Local</p>
+                  <h3 class="mt-3 text-2xl font-semibold">Una marca más consistente en todos los puntos de contacto</h3>
+                  <p class="mt-3 text-white/70">La percepción sube cuando la comunicación deja de sentirse improvisada y empieza a parecer intencional.</p>
+                </article>
               </div>
             </div>
+
             <div class="mt-6 flex items-center justify-center gap-4">
               <button type="button" class="axora-carousel-btn" data-carousel-prev aria-label="Anterior">
                 <span aria-hidden="true">‹</span>
@@ -483,110 +458,112 @@
         </div>
       </section>
 
-      <!-- RESULTADOS -->
       <section class="relative px-6 py-16 lg:py-24">
-        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+        <video class="absolute inset-0 h-full w-full object-cover opacity-40" muted loop autoplay playsinline
           src="img/videogalaxia.mp4"></video>
         <div class="absolute inset-0 bg-gradient-to-b from-black/85 via-black/90 to-black"></div>
-        <div class="relative max-w-6xl mx-auto grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div class="space-y-4">
-            <h2 class="text-2xl lg:text-4xl font-semibold">Resultados que se notan</h2>
-            <p class="text-white/70">Beneficios concretos desde las primeras semanas.</p>
-            <ul class="space-y-3">
-              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-500"></span>Más visibilidad online</li>
-              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-500"></span>Mayor confianza del cliente</li>
-              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-500"></span>Respuestas automáticas</li>
-              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-500"></span>Imagen digital profesional</li>
+        <div class="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-center">
+          <div class="space-y-5">
+            <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Resultados esperables</p>
+            <h2 class="text-2xl font-semibold lg:text-4xl">Más visibilidad, más confianza y una operación mucho menos manual.</h2>
+            <p class="text-white/70">Una landing de este tipo funciona mejor cuando explica bien, reduce fricción y guía con CTA claros.</p>
+            <ul class="space-y-3 text-white/80">
+              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Más claridad antes del primer contacto</li>
+              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Mejor percepción de marca desde móvil</li>
+              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Procesos simples para captar y responder mejor</li>
+              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Base lista para escalar campañas o SEO local</li>
             </ul>
             <div class="mt-8 grid gap-4 sm:grid-cols-3">
               <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-center">
-                <p class="text-2xl font-semibold">
-                  <span data-counter data-target="20" data-prefix="+">20</span>
-                </p>
-                <p class="text-white/70 text-sm">Proyectos</p>
+                <p class="text-2xl font-semibold"><span data-counter data-target="20" data-prefix="+">20</span></p>
+                <p class="text-sm text-white/70">Proyectos</p>
               </div>
               <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-center">
-                <p class="text-2xl font-semibold">
-                  <span data-counter data-target="50" data-prefix="+">50</span>
-                </p>
-                <p class="text-white/70 text-sm">Automatizaciones</p>
+                <p class="text-2xl font-semibold"><span data-counter data-target="50" data-prefix="+">50</span></p>
+                <p class="text-sm text-white/70">Automatizaciones</p>
               </div>
               <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-center">
-                <p class="text-2xl font-semibold">
-                  <span data-counter data-target="100" data-prefix="+">100</span>
-                </p>
-                <p class="text-white/70 text-sm">Horas ahorradas</p>
+                <p class="text-2xl font-semibold"><span data-counter data-target="100" data-prefix="+">100</span></p>
+                <p class="text-sm text-white/70">Horas ahorradas</p>
               </div>
             </div>
           </div>
-          <div class="rounded-3xl border border-white/10 bg-black/40 p-8 backdrop-blur">
-            <p class="text-violet-400 font-semibold">Impacto esperado</p>
-            <p class="text-white/80 mt-2">Con una presencia digital activa llegan más consultas y ventas medibles.</p>
-            <div class="mt-6 grid grid-cols-2 gap-4">
-              <div class="rounded-xl border border-white/10 bg-black/30 p-4 text-center">
+
+          <div class="rounded-[2rem] border border-white/10 bg-black/40 p-8 backdrop-blur-xl">
+            <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Impacto</p>
+            <h3 class="mt-4 text-3xl font-semibold">Una presencia digital consistente mejora la decisión antes de hablar contigo.</h3>
+            <p class="mt-4 text-white/75">La combinación de estructura, visual y automatización reduce abandono y transmite profesionalidad con más rapidez.</p>
+            <div class="mt-8 grid grid-cols-2 gap-4">
+              <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center">
                 <p class="text-2xl font-semibold">+40%</p>
-                <p class="text-white/70 text-sm">Visibilidad</p>
+                <p class="text-sm text-white/65">Visibilidad</p>
               </div>
-              <div class="rounded-xl border border-white/10 bg-black/30 p-4 text-center">
+              <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center">
                 <p class="text-2xl font-semibold">24/7</p>
-                <p class="text-white/70 text-sm">Atención</p>
+                <p class="text-sm text-white/65">Atención</p>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center">
+                <p class="text-2xl font-semibold">3x</p>
+                <p class="text-sm text-white/65">Más claridad en CTA</p>
+              </div>
+              <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center">
+                <p class="text-2xl font-semibold">1 sistema</p>
+                <p class="text-sm text-white/65">Marca + captación + soporte</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- CTA FINAL -->
       <section id="contacto" class="relative px-6 py-16 lg:py-24">
-        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+        <video class="absolute inset-0 h-full w-full object-cover opacity-40" muted loop autoplay playsinline
           src="img/videogalaxia.mp4"></video>
-        <div class="absolute inset-0 bg-gradient-to-r from-violet-700/60 via-violet-600/60 to-violet-500/60"></div>
-        <div class="relative max-w-5xl mx-auto text-center space-y-6">
-          <h2 class="text-3xl lg:text-5xl font-semibold">Hablemos sobre tu negocio</h2>
-          <p class="text-white/90 max-w-2xl mx-auto">Solicita un diagnóstico digital gratuito y descubre cómo podemos ayudarte a modernizar tu presencia online.</p>
-          <a href="contacto.html#inicio"
-            class="inline-flex items-center justify-center px-10 py-4 rounded-full border border-white/20 bg-black/30 hover:bg-black/50 transition-all duration-300 shadow-[0_0_20px_rgba(139,92,246,0.35)] hover:-translate-y-1">
+        <div class="absolute inset-0 bg-gradient-to-r from-violet-700/60 via-violet-600/45 to-fuchsia-500/35"></div>
+        <div class="relative mx-auto max-w-5xl space-y-6 text-center">
+          <h2 class="text-3xl font-semibold lg:text-5xl">Si tu negocio ya funciona offline, hagamos que también destaque online.</h2>
+          <p class="mx-auto max-w-2xl text-white/90">Te preparamos un diagnóstico inicial para priorizar diseño, estructura y automatización sin complicarte con jerga técnica.</p>
+          <a href="contacto.html#formulario"
+            class="axora-cta inline-flex items-center justify-center rounded-full border border-white/15 bg-black/35 px-10 py-4 font-semibold text-white shadow-[0_0_20px_rgba(139,92,246,0.28)] transition-all duration-300 hover:-translate-y-1 hover:bg-black/50">
             Solicitar diagnóstico
           </a>
         </div>
       </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="px-6 py-12 bg-black">
-      <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-4">
+    <footer class="bg-black px-6 py-12">
+      <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-4">
         <div class="space-y-4">
-          <img
-            src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
+          <img src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
             alt="Axora Agency" class="w-32">
-          <p class="text-white/70">Agencia digital para negocios locales que quieren crecer con tecnologia.</p>
+          <p class="text-white/70">Agencia digital para negocios locales que quieren crecer con tecnología y una presencia online más seria.</p>
         </div>
         <div class="space-y-3">
           <p class="font-semibold">Enlaces</p>
-          <a href="index.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Inicio</a>
-          <a href="soluciones.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Soluciones</a>
-          <a href="proceso.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Como trabajamos</a>
-          <a href="contacto.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Contacto</a>
+          <a href="index.html#inicio" class="block text-white/70 transition-colors hover:text-violet-300">Inicio</a>
+          <a href="index.html#soluciones" class="block text-white/70 transition-colors hover:text-violet-300">Soluciones</a>
+          <a href="index.html#proceso" class="block text-white/70 transition-colors hover:text-violet-300">Cómo trabajamos</a>
+          <a href="contacto.html#inicio" class="block text-white/70 transition-colors hover:text-violet-300">Contacto</a>
         </div>
         <div class="space-y-3">
           <p class="font-semibold">Servicios</p>
-          <p class="text-white/70">Webs</p>
-          <p class="text-white/70">Chatbots</p>
+          <p class="text-white/70">Landing pages</p>
+          <p class="text-white/70">Automatización</p>
           <p class="text-white/70">Contenido</p>
-          <p class="text-white/70">Anuncios Meta</p>
+          <p class="text-white/70">Optimización digital</p>
         </div>
         <div class="space-y-3">
           <p class="font-semibold">Contacto</p>
           <p class="text-white/70">hola@axora.agency</p>
           <p class="text-white/70">+34 600 000 000</p>
           <div class="flex gap-4">
-            <a href="#" class="text-white/70 hover:text-violet-400 transition-colors">Instagram</a>
-            <a href="#" class="text-white/70 hover:text-violet-400 transition-colors">Facebook</a>
+            <a href="#" class="text-white/70 transition-colors hover:text-violet-300">Instagram</a>
+            <a href="#" class="text-white/70 transition-colors hover:text-violet-300">Facebook</a>
           </div>
         </div>
       </div>
     </footer>
   </div>
+
   <script src="main.js" defer></script>
 </body>
 

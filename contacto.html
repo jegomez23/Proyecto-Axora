@@ -4,250 +4,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Axora</title>
+  <meta name="description" content="Solicita un diagnóstico inicial con Axora y te ayudamos a ordenar la presencia digital de tu negocio.">
   <link href="./dist/output.css" rel="stylesheet">
-  <style>
-    .menu-line {
-      transition: transform 0.25s ease, opacity 0.25s ease;
-    }
-
-    .menu-btn.is-open .line-1 {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .menu-btn.is-open .line-2 {
-      opacity: 0;
-    }
-
-    .menu-btn.is-open .line-3 {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .menu-panel {
-      max-height: 0;
-      overflow: hidden;
-    }
-
-    .menu-panel.is-open {
-      max-height: 420px;
-    }
-  
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    .axora-scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      width: 100%;
-      background: linear-gradient(90deg, rgba(139, 92, 246, 0.95), rgba(236, 72, 153, 0.7));
-      transform: scaleX(0);
-      transform-origin: left;
-      z-index: 60;
-      box-shadow: 0 0 12px rgba(139, 92, 246, 0.45);
-    }
-
-    [data-nav-surface] {
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
-    }
-
-    [data-nav-surface].is-scrolled {
-      background-color: rgba(0, 0, 0, 0.65);
-      border-color: rgba(139, 92, 246, 0.35);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(14px);
-    }
-
-    .axora-reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      filter: blur(6px);
-      transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
-    }
-
-    .axora-reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-    }
-
-    .axora-section {
-      isolation: isolate;
-    }
-
-    .axora-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: min(92%, 1100px);
-      height: 1px;
-      transform: translateX(-50%);
-      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
-      opacity: 0.7;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .axora-card {
-      --tw-scale-x: 1;
-      --tw-scale-y: 1;
-      transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-      will-change: transform;
-    }
-
-    .axora-card:hover {
-      --tw-scale-x: 1.01;
-      --tw-scale-y: 1.01;
-      box-shadow: 0 18px 40px rgba(139, 92, 246, 0.15);
-      border-color: rgba(139, 92, 246, 0.6);
-    }
-
-    .axora-cta {
-      transition: box-shadow 0.3s ease, filter 0.3s ease;
-    }
-
-    .axora-cta:hover {
-      box-shadow: 0 0 25px rgba(139, 92, 246, 0.45);
-      filter: brightness(1.05);
-    }
-
-    .axora-input:focus {
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
-    }
-
-    .axora-carousel-track {
-      display: flex;
-      gap: 1.5rem;
-      transition: transform 0.5s ease;
-      will-change: transform;
-    }
-
-    .axora-carousel-item {
-      flex: 0 0 100%;
-    }
-
-    @media (min-width: 640px) {
-      .axora-carousel-item {
-        flex-basis: 50%;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .axora-carousel-item {
-        flex-basis: 33.3333%;
-      }
-    }
-
-    .axora-carousel-btn {
-      height: 40px;
-      width: 40px;
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(0, 0, 0, 0.35);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .axora-carousel-btn:hover {
-      background: rgba(139, 92, 246, 0.35);
-      border-color: rgba(139, 92, 246, 0.7);
-      transform: translateY(-2px);
-    }
-
-    .axora-dot {
-      height: 8px;
-      width: 8px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.3);
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .axora-dot.is-active {
-      background: rgba(139, 92, 246, 0.9);
-      transform: scale(1.25);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .axora-reveal {
-        transition: none;
-        transform: none;
-        filter: none;
-        opacity: 1;
-      }
-
-      .axora-carousel-track {
-        transition: none;
-      }
-    }
-  </style>
 </head>
 
 <body class="bg-black text-white">
   <div class="axora-scroll-progress" data-scroll-progress aria-hidden="true"></div>
-  <div class="bg-[url(../img/cielogalaxiamoradagrande.jpg)] bg-cover bg-center lg:h-full lg:w-full">
-    <header class="fixed top-0 left-0 w-full z-50" data-navbar>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-6">
-        <div
-          data-nav-surface class="relative rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
-          <div class="absolute inset-x-6 -bottom-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
-          <nav aria-label="Principal" class="px-4 sm:px-6 py-4 flex items-center gap-8 lg:justify-between justify-around">
-            <div class="flex items-center">
-              <img
-                src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
+
+  <div class="bg-[url(./img/cielogalaxiamoradagrande.jpg)] bg-cover bg-center lg:h-full lg:w-full">
+    <header class="fixed top-0 left-0 z-50 w-full" data-navbar>
+      <div class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-12">
+        <div data-nav-surface
+          class="relative rounded-2xl border border-white/10 bg-black/25 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
+          <div class="absolute inset-x-6 -bottom-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent">
+          </div>
+          <nav aria-label="Principal" class="flex items-center justify-between gap-6 px-4 py-4 sm:px-6">
+            <a href="index.html#inicio" class="flex items-center">
+              <img src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
                 alt="Axora Agency" class="w-32 lg:w-52">
-            </div>
-            <ul class="hidden md:flex items-center gap-8 text-white font-medium lg:text-lg">
-              <li>
-                <a href="index.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Inicio</a>
-              </li>
-              <li>
-                <a href="soluciones.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Soluciones</a>
-              </li>
-              <li>
-                <a href="proceso.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Como trabajamos</a>
-              </li>
-              <li>
-                <a href="proyectos.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Proyectos</a>
-              </li>
-              <li>
-                <a href="contacto.html#inicio"
-                  class="relative transition-colors duration-300 hover:text-violet-400 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:bg-violet-500 after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">Contacto</a>
-              </li>
+            </a>
+
+            <ul class="hidden items-center gap-8 text-sm font-medium md:flex lg:text-base">
+              <li><a href="index.html#inicio" class="transition-colors duration-300 hover:text-violet-300">Inicio</a></li>
+              <li><a href="index.html#soluciones" class="transition-colors duration-300 hover:text-violet-300">Soluciones</a></li>
+              <li><a href="index.html#proceso" class="transition-colors duration-300 hover:text-violet-300">Cómo trabajamos</a></li>
+              <li><a href="index.html#proyectos" class="transition-colors duration-300 hover:text-violet-300">Proyectos</a></li>
+              <li><a href="contacto.html#inicio" class="transition-colors duration-300 hover:text-violet-300">Contacto</a></li>
             </ul>
-            <div class="hidden lg:flex items-center text-center">
-              <a href="contacto.html#inicio"
-                class="px-6 py-3 rounded-full border border-violet-500 text-white bg-black/40 hover:bg-violet-600/80 hover:border-violet-600 transition-colors duration-300 shadow-[0_0_15px_rgba(139,92,246,0.4)]">
+
+            <div class="hidden lg:flex">
+              <a href="contacto.html#formulario"
+                class="axora-cta inline-flex items-center justify-center rounded-full border border-violet-400/70 bg-black/35 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-violet-300 hover:bg-violet-600/70">
                 Diagnóstico gratuito
               </a>
             </div>
-            <button class="md:hidden text-white focus:outline-none menu-btn" data-menu-btn aria-expanded="false"
-              aria-controls="mobile-menu">
-              <span class="sr-only">Abrir menu</span>
-              <span class="block h-0.5 w-8 bg-white rounded menu-line line-1"></span>
-              <span class="block h-0.5 w-8 bg-white rounded menu-line line-2 mt-2"></span>
-              <span class="block h-0.5 w-8 bg-white rounded menu-line line-3 mt-2"></span>
+
+            <button class="menu-btn text-white md:hidden" data-menu-btn aria-expanded="false" aria-controls="mobile-menu">
+              <span class="sr-only">Abrir menú</span>
+              <span class="menu-line line-1 block h-0.5 w-8 rounded bg-white"></span>
+              <span class="menu-line line-2 mt-2 block h-0.5 w-8 rounded bg-white"></span>
+              <span class="menu-line line-3 mt-2 block h-0.5 w-8 rounded bg-white"></span>
             </button>
           </nav>
+
           <div id="mobile-menu" data-menu-panel
-            class="menu-panel md:hidden px-4 pb-5 pt-2 space-y-3 text-white/90 bg-black/40 border-t border-white/10 transition-all duration-300 opacity-0 -translate-y-2 pointer-events-none">
-            <a href="index.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Inicio</a>
-            <a href="soluciones.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Soluciones</a>
-            <a href="proceso.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Como trabajamos</a>
-            <a href="proyectos.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Proyectos</a>
-            <a href="contacto.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Contacto</a>
-            <a href="contacto.html#inicio"
-              class="mt-2 inline-flex items-center justify-center w-full px-6 py-3 rounded-full border border-violet-500 text-white bg-violet-600/80 hover:bg-violet-600 transition-colors duration-300">
-              Diagnóstico gratuito
+            class="menu-panel pointer-events-none border-t border-white/10 bg-black/70 px-4 pb-5 pt-2 text-white/90 opacity-0 -translate-y-2 transition-all duration-300 md:hidden">
+            <div class="space-y-2">
+              <a href="index.html#inicio" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Inicio</a>
+              <a href="index.html#soluciones" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Soluciones</a>
+              <a href="index.html#proceso" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Cómo trabajamos</a>
+              <a href="index.html#proyectos" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Proyectos</a>
+              <a href="contacto.html#inicio" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Contacto</a>
+            </div>
+            <a href="contacto.html#formulario"
+              class="mt-4 inline-flex w-full items-center justify-center rounded-full border border-violet-400/70 bg-violet-600/85 px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-violet-500">
+              Solicitar diagnóstico
             </a>
           </div>
         </div>
@@ -256,15 +68,18 @@
 
     <main>
       <section id="inicio" class="relative min-h-[70vh] lg:min-h-[80vh]">
-        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+        <video class="absolute inset-0 h-full w-full object-cover opacity-35" muted loop autoplay playsinline
           src="img/videogalaxia.mp4"></video>
-        <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black/90"></div>
-        <div class="relative z-10 px-6 pt-52 pb-16">
-          <div class="max-w-6xl mx-auto space-y-6 mt-40 lg:mt-50">
-            <h1 class="text-4xl lg:text-6xl font-semibold">Hablemos de tu diagnóstico inicial</h1>
-            <p class="text-white/80 max-w-2xl">Formulario simple, respuesta rápida y sin compromiso.</p>
+        <div class="axora-hero-grid absolute inset-0"></div>
+        <div class="axora-hero-orb left-[10%] top-32 h-36 w-36 bg-violet-500/25"></div>
+        <div class="axora-hero-orb is-delayed right-[12%] top-56 h-28 w-28 bg-fuchsia-500/15"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/70 to-black/90"></div>
+        <div class="relative z-10 px-6 pb-16 pt-52">
+          <div class="mx-auto mt-20 max-w-6xl space-y-6 lg:mt-50">
+            <h1 class="max-w-4xl text-4xl font-semibold lg:text-6xl">Cuéntanos qué necesita tu negocio y te devolvemos un plan claro para empezar.</h1>
+            <p class="max-w-2xl text-white/80">Formulario simple, respuesta rápida y foco en acciones que tengan sentido para un negocio local.</p>
             <a href="#formulario"
-              class="inline-flex items-center justify-center px-8 py-3 rounded-full border border-violet-500 bg-violet-600/80 hover:bg-violet-600 transition-all duration-300 shadow-[0_0_15px_rgba(139,92,246,0.4)] hover:-translate-y-1">
+              class="axora-cta inline-flex items-center justify-center rounded-full border border-violet-400 bg-violet-600/90 px-8 py-3.5 font-semibold text-white shadow-[0_0_15px_rgba(139,92,246,0.4)] transition-all duration-300 hover:-translate-y-1 hover:bg-violet-500">
               Enviar solicitud ahora
             </a>
           </div>
@@ -272,65 +87,71 @@
       </section>
 
       <section id="formulario" class="relative px-6 py-20 lg:py-28">
-        <video class="absolute inset-0 h-full w-full object-cover opacity-50" muted loop autoplay
+        <video class="absolute inset-0 h-full w-full object-cover opacity-35" muted loop autoplay playsinline
           src="img/videogalaxia.mp4"></video>
-        <div class="absolute inset-0 bg-gradient-to-r from-violet-700/40 via-black/80 to-black"></div>
-        <div class="relative max-w-6xl mx-auto grid gap-10 lg:grid-cols-2">
-          <div class="rounded-3xl border border-white/10 bg-black/40 p-8 backdrop-blur">
-            <h2 class="text-2xl lg:text-4xl font-semibold">Deja tus datos</h2>
-            <p class="text-white/70 mt-2">Te respondemos en menos de 24 horas.</p>
-            <form class="mt-8 space-y-5">
-              <div class="space-y-2">
-                <label for="nombre" class="text-sm text-white/80">Nombre</label>
-                <input id="nombre" type="text" placeholder="Tu nombre" required
-                  class="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-violet-500 transition-colors" />
-              </div>
-              <div class="space-y-2">
-                <label for="email" class="text-sm text-white/80">Email</label>
-                <input id="email" type="email" placeholder="tu@email.com" required
-                  class="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-violet-500 transition-colors" />
-              </div>
-              <div class="space-y-2">
-                <label for="negocio" class="text-sm text-white/80">Negocio</label>
-                <input id="negocio" type="text" placeholder="Tipo de negocio" required
-                  class="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-violet-500 transition-colors" />
-              </div>
-              <div class="space-y-2">
-                <label for="mensaje" class="text-sm text-white/80">Mensaje</label>
-                <textarea id="mensaje" rows="4" placeholder="Cuéntanos tu necesidad"
-                  class="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-violet-500 transition-colors"></textarea>
-              </div>
-              <label class="flex items-center gap-3 text-white/80">
-                <input type="checkbox" class="h-4 w-4 rounded border-white/20 bg-black/50 text-violet-500">
-                Quiero diagnóstico inicial
-              </label>
-              <button type="submit"
-                class="w-full inline-flex items-center justify-center px-6 py-3 rounded-full border border-violet-500 bg-violet-600/80 hover:bg-violet-600 transition-all duration-300 hover:-translate-y-1 shadow-[0_0_15px_rgba(139,92,246,0.4)]">
-                Enviar y recibir propuesta
-              </button>
-            </form>
+        <div class="absolute inset-0 bg-gradient-to-r from-violet-700/35 via-black/80 to-black"></div>
+        <div class="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div class="axora-contact-shell rounded-[2rem] border border-white/10 bg-black/45 p-8 backdrop-blur-xl">
+            <div class="relative">
+              <h2 class="mt-4 text-2xl font-semibold lg:text-4xl">Deja tus datos y preparamos un diagnóstico inicial.</h2>
+              <p class="mt-3 max-w-xl text-white/70">Más limpio, más directo y pensado para que completar el formulario cueste muy poco.</p>
+
+              <form class="mt-8 space-y-5">
+                <div class="grid gap-5 md:grid-cols-2">
+                  <div>
+                    <label for="nombre" class="axora-field-label">Nombre</label>
+                    <input id="nombre" type="text" placeholder="Tu nombre" required
+                      class="axora-input w-full rounded-2xl border border-white/10 bg-black/55 px-4 py-3.5 text-white placeholder:text-white/35 focus:outline-none" />
+                  </div>
+                  <div>
+                    <label for="email" class="axora-field-label">Email</label>
+                    <input id="email" type="email" placeholder="tu@email.com" required
+                      class="axora-input w-full rounded-2xl border border-white/10 bg-black/55 px-4 py-3.5 text-white placeholder:text-white/35 focus:outline-none" />
+                  </div>
+                </div>
+                <div>
+                  <label for="negocio" class="axora-field-label">Negocio</label>
+                  <input id="negocio" type="text" placeholder="Tipo de negocio o sector" required
+                    class="axora-input w-full rounded-2xl border border-white/10 bg-black/55 px-4 py-3.5 text-white placeholder:text-white/35 focus:outline-none" />
+                </div>
+                <div>
+                  <label for="mensaje" class="axora-field-label">Qué quieres mejorar</label>
+                  <textarea id="mensaje" rows="5" placeholder="Cuéntanos tu objetivo, bloqueo principal o si necesitas una web, automatización o una mejora visual."
+                    class="axora-input w-full rounded-2xl border border-white/10 bg-black/55 px-4 py-3.5 text-white placeholder:text-white/35 focus:outline-none"></textarea>
+                </div>
+                <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-white/80">
+                  <input type="checkbox" class="axora-check h-4 w-4 rounded border-white/20 bg-black/50">
+                  Quiero un diagnóstico inicial con prioridades y siguientes pasos.
+                </label>
+                <button type="submit"
+                  class="axora-cta inline-flex w-full items-center justify-center rounded-full border border-violet-400 bg-violet-600/90 px-6 py-4 font-semibold text-white shadow-[0_0_18px_rgba(139,92,246,0.35)] transition-all duration-300 hover:-translate-y-1 hover:bg-violet-500">
+                  Enviar y recibir propuesta
+                </button>
+              </form>
+            </div>
           </div>
+
           <div class="space-y-6">
-            <div class="rounded-3xl border border-white/10 bg-black/40 p-8 backdrop-blur">
-              <h3 class="text-xl font-semibold">Contacto directo</h3>
-              <p class="text-white/70 mt-2">También puedes escribirnos por aquí.</p>
+            <div class="rounded-[2rem] border border-white/10 bg-black/40 p-8 backdrop-blur-xl">
+              <h3 class="mt-4 text-2xl font-semibold">También puedes escribirnos por un canal directo.</h3>
+              <p class="mt-3 text-white/70">Si prefieres ir más rápido, usa WhatsApp o correo y centralizamos la conversación.</p>
               <div class="mt-6 space-y-4">
                 <a href="https://wa.me/34600000000" target="_blank" rel="noopener"
-                  class="inline-flex items-center justify-center w-full px-6 py-3 rounded-full border border-white/20 bg-black/30 hover:bg-black/50 transition-all duration-300 hover:-translate-y-1">
+                  class="axora-cta inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-black/35 px-6 py-3.5 font-medium text-white transition-all duration-300 hover:-translate-y-1 hover:bg-white/8">
                   WhatsApp +34 600 000 000
                 </a>
                 <a href="mailto:hola@axora.agency"
-                  class="inline-flex items-center justify-center w-full px-6 py-3 rounded-full border border-white/20 bg-black/30 hover:bg-black/50 transition-all duration-300 hover:-translate-y-1">
+                  class="axora-cta inline-flex w-full items-center justify-center rounded-full border border-white/15 bg-black/35 px-6 py-3.5 font-medium text-white transition-all duration-300 hover:-translate-y-1 hover:bg-white/8">
                   hola@axora.agency
                 </a>
               </div>
             </div>
-            <div class="rounded-3xl border border-violet-500/40 bg-black/40 p-8 backdrop-blur">
-              <p class="text-violet-400 font-semibold">Ubicación</p>
-              <p class="text-white/80 mt-2">País Vasco, España</p>
-              <p class="text-white/70 mt-3">Trabajamos remoto con negocios locales.</p>
-              <a href="contacto.html#inicio"
-                class="mt-6 inline-flex items-center justify-center px-8 py-3 rounded-full border border-violet-500 bg-violet-600/80 hover:bg-violet-600 transition-all duration-300 hover:-translate-y-1 shadow-[0_0_15px_rgba(139,92,246,0.4)]">
+
+            <div class="rounded-[2rem] border border-violet-500/30 bg-black/40 p-8 backdrop-blur-xl">
+              <h3 class="mt-4 text-2xl font-semibold">País Vasco, España</h3>
+              <p class="mt-3 text-white/70">Trabajamos en remoto con negocios locales que necesitan una presencia digital más sólida y coherente.</p>
+              <a href="contacto.html#formulario"
+                class="axora-cta mt-6 inline-flex items-center justify-center rounded-full border border-violet-400 bg-violet-600/85 px-8 py-3.5 font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-violet-500">
                 Quiero mi diagnóstico ahora
               </a>
             </div>
@@ -339,39 +160,40 @@
       </section>
     </main>
 
-    <footer class="px-6 py-12 bg-black">
-      <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-4">
+    <footer class="bg-black px-6 py-12">
+      <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-4">
         <div class="space-y-4">
           <img src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
             alt="Axora Agency" class="w-32">
-          <p class="text-white/70">Agencia digital para negocios locales que quieren crecer con tecnologia.</p>
+          <p class="text-white/70">Agencia digital para negocios locales que quieren crecer con tecnología y una presencia online más seria.</p>
         </div>
         <div class="space-y-3">
           <p class="font-semibold">Enlaces</p>
-          <a href="index.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Inicio</a>
-          <a href="soluciones.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Soluciones</a>
-          <a href="proceso.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Como trabajamos</a>
-          <a href="contacto.html#inicio" class="block text-white/70 hover:text-violet-400 transition-colors">Contacto</a>
+          <a href="index.html#inicio" class="block text-white/70 transition-colors hover:text-violet-300">Inicio</a>
+          <a href="index.html#soluciones" class="block text-white/70 transition-colors hover:text-violet-300">Soluciones</a>
+          <a href="index.html#proceso" class="block text-white/70 transition-colors hover:text-violet-300">Cómo trabajamos</a>
+          <a href="contacto.html#inicio" class="block text-white/70 transition-colors hover:text-violet-300">Contacto</a>
         </div>
         <div class="space-y-3">
           <p class="font-semibold">Servicios</p>
-          <p class="text-white/70">Webs</p>
-          <p class="text-white/70">Redes</p>
-          <p class="text-white/70">Automatizacion</p>
-          <p class="text-white/70">Meta Ads</p>
+          <p class="text-white/70">Landing pages</p>
+          <p class="text-white/70">Automatización</p>
+          <p class="text-white/70">Contenido</p>
+          <p class="text-white/70">Optimización digital</p>
         </div>
         <div class="space-y-3">
           <p class="font-semibold">Contacto</p>
           <p class="text-white/70">hola@axora.agency</p>
           <p class="text-white/70">+34 600 000 000</p>
           <div class="flex gap-4">
-            <a href="#" class="text-white/70 hover:text-violet-400 transition-colors">Instagram</a>
-            <a href="#" class="text-white/70 hover:text-violet-400 transition-colors">Facebook</a>
+            <a href="#" class="text-white/70 transition-colors hover:text-violet-300">Instagram</a>
+            <a href="#" class="text-white/70 transition-colors hover:text-violet-300">Facebook</a>
           </div>
         </div>
       </div>
     </footer>
   </div>
+
   <script src="main.js" defer></script>
 </body>
 

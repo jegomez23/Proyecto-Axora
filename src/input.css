@@ -1,13 +1,338 @@
 @import "tailwindcss";
 
-/* Estado inicial transparente */
-#navbar {
-  background: transparent;
+:root {
+  --axora-violet: #8b5cf6;
+  --axora-violet-soft: rgba(139, 92, 246, 0.22);
+  --axora-pink-soft: rgba(236, 72, 153, 0.18);
+  --axora-surface: rgba(8, 8, 15, 0.62);
+  --axora-border: rgba(255, 255, 255, 0.12);
 }
 
-/* Clase que activaremos después con JS */
-.nav-scrolled {
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+html {
+  scroll-behavior: smooth;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+.menu-line {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.menu-btn.is-open .line-1 {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu-btn.is-open .line-2 {
+  opacity: 0;
+}
+
+.menu-btn.is-open .line-3 {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.menu-panel {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.menu-panel.is-open {
+  max-height: 420px;
+}
+
+.axora-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.95), rgba(236, 72, 153, 0.7));
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 60;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.45);
+}
+
+[data-nav-surface] {
+  transition: background-color 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease,
+    backdrop-filter 0.35s ease, transform 0.35s ease;
+}
+
+[data-nav-surface].is-scrolled {
+  background-color: rgba(5, 5, 10, 0.82);
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(18px);
+}
+
+.axora-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(6px);
+  transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+}
+
+.axora-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.axora-section {
+  isolation: isolate;
+}
+
+.axora-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(92%, 1100px);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.axora-card {
+  transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease, background 0.35s ease;
+  will-change: transform;
+}
+
+.axora-card:hover {
+  box-shadow: 0 22px 50px rgba(139, 92, 246, 0.18);
+  border-color: rgba(139, 92, 246, 0.6);
+}
+
+.axora-cta {
+  transition: box-shadow 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+}
+
+.axora-cta:hover {
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.45);
+  filter: brightness(1.05);
+}
+
+.axora-input {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+
+.axora-input:focus {
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.65);
+  background-color: rgba(8, 8, 16, 0.9);
+}
+
+.axora-hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 90px 90px;
+  mask-image: radial-gradient(circle at center, black 35%, transparent 78%);
+  opacity: 0.28;
+}
+
+.axora-hero-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(55px);
+  pointer-events: none;
+  opacity: 0.9;
+  animation: axora-float 13s ease-in-out infinite;
+}
+
+.axora-hero-orb.is-delayed {
+  animation-delay: -4s;
+}
+
+.axora-hero-orb.is-slow {
+  animation-duration: 18s;
+}
+
+.axora-glow-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.axora-glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(139, 92, 246, 0.22), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.axora-glow-card:hover::before {
+  opacity: 1;
+}
+
+.axora-solution-icon,
+.axora-process-icon,
+.axora-project-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.22), rgba(15, 15, 25, 0.45));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 25px rgba(139, 92, 246, 0.16);
+}
+
+.axora-process-line {
+  position: absolute;
+  top: 2.9rem;
+  left: 15%;
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.6), transparent);
+  z-index: 0;
+}
+
+.axora-carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+.axora-carousel-item {
+  flex: 0 0 100%;
+}
+
+.axora-project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.axora-project-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 1.5rem 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.35), transparent);
+}
+
+.axora-project-preview {
+  position: relative;
+  overflow: hidden;
+}
+
+.axora-project-preview::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 50%, rgba(139, 92, 246, 0.22));
+}
+
+.axora-carousel-btn {
+  height: 44px;
+  width: 44px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.axora-carousel-btn:hover {
+  background: rgba(139, 92, 246, 0.35);
+  border-color: rgba(139, 92, 246, 0.7);
+  transform: translateY(-2px);
+}
+
+.axora-carousel-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.axora-dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.axora-dot.is-active {
+  background: rgba(139, 92, 246, 0.9);
+  transform: scale(1.25);
+}
+
+.axora-contact-shell {
+  position: relative;
+  overflow: hidden;
+}
+
+.axora-contact-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(139, 92, 246, 0.14), transparent 35%, rgba(236, 72, 153, 0.1));
+  pointer-events: none;
+}
+
+.axora-field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.axora-check {
+  accent-color: var(--axora-violet);
+}
+
+@keyframes axora-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0) scale(1.04);
+  }
+}
+
+@media (min-width: 640px) {
+  .axora-carousel-item {
+    flex-basis: calc(50% - 0.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .axora-carousel-item {
+    flex-basis: calc(33.3333% - 1rem);
+  }
+}
+
+@media (max-width: 1023px) {
+  .axora-process-line {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .axora-reveal,
+  .axora-hero-orb,
+  .axora-carousel-track,
+  .axora-card,
+  .axora-cta {
+    transition: none;
+    animation: none;
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
 }
