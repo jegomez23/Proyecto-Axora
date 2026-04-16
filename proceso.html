@@ -36,6 +36,19 @@
       scroll-behavior: smooth;
     }
 
+    .axora-scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(90deg, rgba(139, 92, 246, 0.95), rgba(236, 72, 153, 0.7));
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: 60;
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.45);
+    }
+
     [data-nav-surface] {
       transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
     }
@@ -50,12 +63,14 @@
     .axora-reveal {
       opacity: 0;
       transform: translateY(18px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      filter: blur(6px);
+      transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
     }
 
     .axora-reveal.is-visible {
       opacity: 1;
       transform: translateY(0);
+      filter: blur(0);
     }
 
     .axora-section {
@@ -77,10 +92,15 @@
     }
 
     .axora-card {
-      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+      will-change: transform;
     }
 
     .axora-card:hover {
+      --tw-scale-x: 1.01;
+      --tw-scale-y: 1.01;
       box-shadow: 0 18px 40px rgba(139, 92, 246, 0.15);
       border-color: rgba(139, 92, 246, 0.6);
     }
@@ -157,6 +177,7 @@
       .axora-reveal {
         transition: none;
         transform: none;
+        filter: none;
         opacity: 1;
       }
 
@@ -168,13 +189,14 @@
 </head>
 
 <body class="bg-black text-white">
+  <div class="axora-scroll-progress" data-scroll-progress aria-hidden="true"></div>
   <div class="bg-[url(../img/cielogalaxiamoradagrande.jpg)] bg-cover bg-center lg:h-full lg:w-full">
     <header class="fixed top-0 left-0 w-full z-50" data-navbar>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-6">
         <div
           data-nav-surface class="relative rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
           <div class="absolute inset-x-6 -bottom-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
-          <nav class="px-4 sm:px-6 py-4 flex items-center gap-8 lg:justify-between justify-around">
+          <nav aria-label="Principal" class="px-4 sm:px-6 py-4 flex items-center gap-8 lg:justify-between justify-around">
             <div class="flex items-center">
               <img
                 src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
@@ -225,7 +247,7 @@
             <a href="contacto.html#inicio" class="block py-2 hover:text-violet-400 transition-colors">Contacto</a>
             <a href="contacto.html#inicio"
               class="mt-2 inline-flex items-center justify-center w-full px-6 py-3 rounded-full border border-violet-500 text-white bg-violet-600/80 hover:bg-violet-600 transition-colors duration-300">
-              Diagnostico gratuito
+              Solicitar diagn?stico digital
             </a>
           </div>
         </div>

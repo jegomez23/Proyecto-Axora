@@ -118,11 +118,29 @@
     });
   }
 
+  // Barra de progreso de scroll
+  function initScrollProgress() {
+    var bar = document.querySelector('[data-scroll-progress]');
+    if (!bar) return;
+
+    var onScroll = function () {
+      var doc = document.documentElement;
+      var total = doc.scrollHeight - doc.clientHeight;
+      var progress = total > 0 ? (doc.scrollTop / total) : 0;
+      bar.style.transform = 'scaleX(' + progress + ')';
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  }
+
   // Microinteracciones en cards y CTAs
   function initHoverEnhancements() {
     var cards = document.querySelectorAll('main .rounded-2xl, main .rounded-3xl');
     cards.forEach(function (card) {
       card.classList.add('axora-card');
+      card.classList.add('transform');
     });
 
     var ctas = document.querySelectorAll('main a, main button');
@@ -247,13 +265,72 @@
     });
   }
 
+  // Contadores animados
+  function initCounters() {
+    var counters = document.querySelectorAll('[data-counter]');
+    if (!counters.length) return;
+
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var animateCounter = function (el) {
+      var target = parseInt(el.getAttribute('data-target'), 10);
+      if (Number.isNaN(target)) return;
+
+      var prefix = el.getAttribute('data-prefix') || '';
+      var suffix = el.getAttribute('data-suffix') || '';
+      var duration = 1200;
+      var start = null;
+
+      var step = function (timestamp) {
+        if (!start) start = timestamp;
+        var progress = Math.min((timestamp - start) / duration, 1);
+        var value = Math.floor(progress * target);
+        el.textContent = prefix + value + suffix;
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        } else {
+          el.textContent = prefix + target + suffix;
+        }
+      };
+
+      window.requestAnimationFrame(step);
+    };
+
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+      counters.forEach(function (el) {
+        var target = el.getAttribute('data-target') || '0';
+        var prefix = el.getAttribute('data-prefix') || '';
+        var suffix = el.getAttribute('data-suffix') || '';
+        el.textContent = prefix + target + suffix;
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          animateCounter(entry.target);
+          obs.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    counters.forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+
   // Inicializaciones
   initMenuToggle();
   initNavbarScroll();
   initSmoothScroll();
   initSectionDividers();
   initRevealAnimations();
+  initScrollProgress();
   initHoverEnhancements();
   initFocusStyles();
   initCarousel();
+  initCounters();
 })();
