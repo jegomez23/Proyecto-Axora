@@ -264,9 +264,10 @@
       submitted = true;
       if (submit) {
         submit.disabled = true;
-        submit.textContent = 'Solicitud protegida';
+        submit.textContent = 'Enviando solicitud...';
       }
-      showStatus('Formulario validado. Los datos no salieron del navegador porque aún no hay un backend de envío configurado.', 'success');
+      showStatus('Formulario validado. Enviando solicitud de forma segura...', 'success');
+      form.submit();
     });
   }
 

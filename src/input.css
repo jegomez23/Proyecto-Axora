@@ -8,6 +8,30 @@
   --axora-border: rgba(255, 255, 255, 0.12);
 }
 
+.text-white\/90,
+.text-white\/80,
+.text-white\/78,
+.text-white\/75,
+.text-white\/72,
+.text-white\/70,
+.text-white\/68 {
+  color: rgb(245 243 255);
+}
+
+.text-white\/65,
+.text-white\/60,
+.text-white\/55 {
+  color: rgb(221 214 254);
+}
+
+.text-white\/45 {
+  color: rgb(196 181 253);
+}
+
+.placeholder\:text-white\/35::placeholder {
+  color: rgb(196 181 253);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -316,6 +340,58 @@ body.menu-open {
 @media (max-width: 1023px) {
   .axora-process-line {
     display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  [data-navbar] .axora-nav-wrap {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.75rem;
+  }
+
+  [data-navbar] .axora-nav-main {
+    gap: 0.75rem;
+    padding-left: 0.75rem;
+    padding-right: 0.625rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  [data-navbar] .axora-nav-logo {
+    width: 6.25rem;
+  }
+
+  [data-navbar] .menu-btn {
+    display: inline-flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+  }
+
+  [data-navbar] .menu-btn:focus-visible {
+    outline: 2px solid rgba(196, 181, 253, 0.9);
+    outline-offset: 2px;
+  }
+
+  [data-navbar] .menu-line {
+    width: 1.75rem;
+  }
+
+  [data-navbar] .line-2,
+  [data-navbar] .line-3 {
+    margin-top: 0.375rem;
+  }
+
+  [data-navbar] .menu-btn.is-open .line-1 {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  [data-navbar] .menu-btn.is-open .line-3 {
+    transform: translateY(-6px) rotate(-45deg);
   }
 }
 
