@@ -181,6 +181,95 @@
     });
   }
 
+  function initProtectedContactForm() {
+    var form = document.querySelector('[data-contact-form]');
+    if (!form) return;
+
+    var status = form.querySelector('[data-form-status]');
+    var submit = form.querySelector('button[type="submit"]');
+    var startedAt = Date.now();
+    var submitted = false;
+
+    var showStatus = function (message, type) {
+      if (!status) return;
+      status.textContent = message;
+      status.classList.remove(
+        'hidden',
+        'border-red-400/40',
+        'border-violet-400/40',
+        'bg-red-500/10',
+        'bg-violet-500/10',
+        'text-red-100',
+        'text-violet-100'
+      );
+      if (type === 'error') {
+        status.classList.add('border-red-400/40', 'bg-red-500/10', 'text-red-100');
+      } else {
+        status.classList.add('border-violet-400/40', 'bg-violet-500/10', 'text-violet-100');
+      }
+    };
+
+    var normalize = function (value) {
+      return value.replace(/\s+/g, ' ').trim();
+    };
+
+    var hasSuspiciousContent = function (value) {
+      return /<[^>]*>|https?:\/\/|www\.|[\r\n]{2,}/i.test(value);
+    };
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      var honeypot = form.querySelector('[data-honeypot]');
+      var nombre = form.querySelector('#nombre');
+      var email = form.querySelector('#email');
+      var negocio = form.querySelector('#negocio');
+      var mensaje = form.querySelector('#mensaje');
+      var consent = form.querySelector('input[name="consentimiento"]');
+
+      if (submitted) {
+        showStatus('Tu solicitud ya fue validada. No se enviaron datos duplicados.', 'error');
+        return;
+      }
+
+      if (honeypot && honeypot.value) {
+        showStatus('No pudimos validar la solicitud.', 'error');
+        return;
+      }
+
+      if (Date.now() - startedAt < 3000) {
+        showStatus('Revisa los campos antes de enviar la solicitud.', 'error');
+        return;
+      }
+
+      [nombre, email, negocio, mensaje].forEach(function (field) {
+        if (field) field.value = normalize(field.value);
+      });
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      if (!consent || !consent.checked) {
+        showStatus('Confirma el diagnóstico inicial antes de enviar.', 'error');
+        return;
+      }
+
+      if ([nombre, negocio, mensaje].some(function (field) { return field && hasSuspiciousContent(field.value); })) {
+        showStatus('Evita enlaces, código o bloques de texto sospechosos en la solicitud.', 'error');
+        return;
+      }
+
+      submitted = true;
+      if (submit) {
+        submit.disabled = true;
+        submit.textContent = 'Solicitud protegida';
+      }
+      showStatus('Formulario validado. Los datos no salieron del navegador porque aún no hay un backend de envío configurado.', 'success');
+    });
+  }
+
   function initCarousel() {
     var carousels = document.querySelectorAll('[data-carousel]');
     if (!carousels.length) return;
@@ -387,6 +476,7 @@
   initScrollProgress();
   initHoverEnhancements();
   initFocusStyles();
+  initProtectedContactForm();
   initCarousel();
   initCounters();
 })();

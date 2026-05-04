@@ -4,10 +4,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Axora | Impulso digital para negocios locales</title>
+  <title>Axora | Soluciones digitales para negocios locales</title>
   <meta name="description"
     content="Axora ayuda a negocios locales a crecer con una web clara, automatización útil y contenido diseñado para convertir.">
   <link href="./dist/output.css" rel="stylesheet">
+  <style>
+    .text-white\/90,
+    .text-white\/80,
+    .text-white\/78,
+    .text-white\/75,
+    .text-white\/72,
+    .text-white\/70,
+    .text-white\/68 {
+      color: rgb(245 243 255);
+    }
+
+    .text-white\/65,
+    .text-white\/60,
+    .text-white\/55 {
+      color: rgb(221 214 254);
+    }
+
+    .text-white\/45 {
+      color: rgb(196 181 253);
+    }
+
+    .placeholder\:text-white\/35::placeholder {
+      color: rgb(196 181 253);
+    }
+
+    @media (max-width: 767px) {
+      [data-navbar] .axora-nav-wrap {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-top: 0.75rem;
+      }
+
+      [data-navbar] .axora-nav-main {
+        gap: 0.75rem;
+        padding-left: 0.75rem;
+        padding-right: 0.625rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+
+      [data-navbar] .axora-nav-logo {
+        width: 6.25rem;
+      }
+
+      [data-navbar] .menu-btn {
+        display: inline-flex;
+        height: 2.5rem;
+        width: 2.5rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+      }
+
+      [data-navbar] .menu-btn:focus-visible {
+        outline: 2px solid rgba(196, 181, 253, 0.9);
+        outline-offset: 2px;
+      }
+
+      [data-navbar] .menu-line {
+        width: 1.75rem;
+      }
+
+      [data-navbar] .line-2,
+      [data-navbar] .line-3 {
+        margin-top: 0.375rem;
+      }
+
+      [data-navbar] .menu-btn.is-open .line-1 {
+        transform: translateY(6px) rotate(45deg);
+      }
+
+      [data-navbar] .menu-btn.is-open .line-3 {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+    }
+  </style>
 </head>
 
 <body class="bg-black text-white">
@@ -15,15 +92,15 @@
 
   <div class="bg-[url(./img/cielogalaxiamoradagrande.jpg)] bg-cover bg-center lg:h-full lg:w-full">
     <header class="fixed top-0 left-0 z-50 w-full" data-navbar>
-      <div class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-12">
+      <div class="axora-nav-wrap mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-12">
         <div data-nav-surface
           class="relative rounded-2xl border border-white/10 bg-black/25 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
           <div class="absolute inset-x-6 -bottom-px h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent">
           </div>
-          <nav aria-label="Principal" class="flex items-center justify-between gap-6 px-4 py-4 sm:px-6">
+          <nav aria-label="Principal" class="axora-nav-main flex items-center justify-between gap-6 px-4 py-4 sm:px-6">
             <a href="index.html#inicio" class="flex items-center gap-3">
               <img src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
-                alt="Axora Agency" class="w-32 lg:w-52">
+                alt="Axora Agency" class="axora-nav-logo w-32 lg:w-52">
             </a>
 
             <ul class="hidden items-center gap-8 text-sm font-medium text-white md:flex lg:text-base">
@@ -60,7 +137,7 @@
           </nav>
 
           <div id="mobile-menu" data-menu-panel
-            class="menu-panel pointer-events-none border-t border-white/10 bg-black/70 px-4 pb-5 pt-2 text-white/90 opacity-0 -translate-y-2 transition-all duration-300 md:hidden">
+            class="menu-panel pointer-events-none border-t border-white/10 bg-black/70 px-4 pb-5 pt-2 text-violet-50 opacity-0 -translate-y-2 transition-all duration-300 md:hidden">
             <div class="space-y-2">
               <a href="index.html#inicio" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Inicio</a>
               <a href="index.html#soluciones" class="block rounded-xl px-3 py-2 transition-colors hover:bg-white/5 hover:text-violet-300">Soluciones</a>
@@ -89,14 +166,14 @@
 
         <div class="relative z-10 px-6 pb-14 pt-44 sm:pt-52 lg:pb-20 lg:pt-40">
           <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-            <div class="space-y-8 mt-20 lg:mt-70">
+            <div class="space-y-8 mt-10 lg:mt-70">
              
               <div class="max-w-3xl space-y-5">
                 <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-7xl">
-                  Convierte tu presencia digital en una máquina de confianza y ventas.
+                  Mejora la presencia online de tu negocio con una web profesional y soluciones digitales claras.
                 </h1>
-                <p class="max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
-                  Diseñamos webs claras, automatizaciones ligeras y contenido con intención para que un negocio local se vea serio, responda rápido y convierta mejor.
+                <p class="max-w-2xl text-base leading-8 text-violet-50 sm:text-lg">
+                  En Axora creamos sitios web para negocios, menús digitales, contenido para redes sociales y automatizaciones con IA que ayudan a captar clientes y ahorrar tiempo.
                 </p>
               </div>
               <div class="flex flex-col gap-4 sm:flex-row">
@@ -111,16 +188,16 @@
               </div>
               <div class="grid max-w-2xl gap-3 sm:grid-cols-3">
                 <div class="rounded-2xl border border-white/10 bg-black/35 px-4 py-4 backdrop-blur">
-                  <p class="text-xs uppercase tracking-[0.26em] text-white/45">Tiempo</p>
-                  <p class="mt-2 text-sm font-semibold text-white">Respuesta y captación más rápidas</p>
+                  <p class="text-xs uppercase tracking-[0.26em] text-violet-300">Tiempo</p>
+                  <p class="mt-2 text-sm font-semibold text-white">Más agilidad para responder y captar clientes</p>
                 </div>
                 <div class="rounded-2xl border border-white/10 bg-black/35 px-4 py-4 backdrop-blur">
-                  <p class="text-xs uppercase tracking-[0.26em] text-white/45">Presencia</p>
-                  <p class="mt-2 text-sm font-semibold text-white">Web, Google y mensaje alineados</p>
+                  <p class="text-xs uppercase tracking-[0.26em] text-violet-300">Presencia</p>
+                  <p class="mt-2 text-sm font-semibold text-white">Web, Google y comunicación alineados</p>
                 </div>
                 <div class="rounded-2xl border border-white/10 bg-black/35 px-4 py-4 backdrop-blur">
-                  <p class="text-xs uppercase tracking-[0.26em] text-white/45">Escala</p>
-                  <p class="mt-2 text-sm font-semibold text-white">Automatización útil sin complejidad</p>
+                  <p class="text-xs uppercase tracking-[0.26em] text-violet-300">Escala</p>
+                  <p class="mt-2 text-sm font-semibold text-white">Automatización útil sin complicar tu operación</p>
                 </div>
               </div>
             </div>
@@ -134,33 +211,33 @@
                     <div class="flex items-center justify-between">
                       <div>
                         <p class="text-xs uppercase tracking-[0.24em] text-violet-200/80">Diagnóstico</p>
-                        <p class="mt-2 text-xl font-semibold">Visión clara desde la primera llamada</p>
+                        <p class="mt-2 text-xl font-semibold">Una dirección clara desde la primera conversación</p>
                       </div>
                       <div class="rounded-2xl border border-violet-400/20 bg-violet-500/10 px-3 py-2 text-sm font-medium text-violet-100">
                         72h
                       </div>
                     </div>
-                    <p class="mt-4 text-sm leading-7 text-white/68">
-                      Detectamos fricción en captación, contenido y atención para priorizar lo que de verdad mueve negocio.
+                    <p class="mt-4 text-sm leading-7 text-violet-100">
+                      Revisamos tu presencia digital, tus canales de contacto y tus procesos para detectar mejoras que tengan impacto real en el negocio.
                     </p>
                   </div>
                   <div class="grid gap-4 sm:grid-cols-2">
                     <div class="rounded-3xl border border-white/10 bg-black/35 p-5">
-                      <p class="text-xs uppercase tracking-[0.24em] text-white/45">Web + SEO local</p>
-                      <p class="mt-2 text-lg font-semibold">Más claridad para quien ya te está buscando</p>
+                      <p class="text-xs uppercase tracking-[0.24em] text-white">Web + SEO local</p>
+                      <p class="mt-2 text-lg font-semibold">Más claridad para quienes ya están buscando tu negocio</p>
                     </div>
                     <div class="rounded-3xl border border-white/10 bg-black/35 p-5">
-                      <p class="text-xs uppercase tracking-[0.24em] text-white/45">Automatización</p>
+                      <p class="text-xs uppercase tracking-[0.24em] text-violet-300">Automatización</p>
                       <p class="mt-2 text-lg font-semibold">Respuestas, reservas y seguimiento sin fricción</p>
                     </div>
                   </div>
                   <div class="rounded-3xl border border-white/10 bg-gradient-to-r from-violet-500/15 to-fuchsia-500/10 p-5">
                     <div class="flex flex-wrap items-center justify-between gap-3">
                       <div>
-                        <p class="text-xs uppercase tracking-[0.24em] text-white/45">Objetivo final</p>
-                        <p class="mt-2 text-lg font-semibold">Que tu negocio se vea premium aunque todavía esté creciendo</p>
+                        <p class="text-xs uppercase tracking-[0.24em] text-violet-300">Objetivo final</p>
+                        <p class="mt-2 text-lg font-semibold">Que tu negocio proyecte confianza online desde el primer vistazo</p>
                       </div>
-                      <span class="rounded-full border border-white/10 px-3 py-1 text-sm text-white/65">Nos adaptamos a ti</span>
+                      <span class="rounded-full border border-white/10 px-3 py-1 text-sm text-violet-200">Nos adaptamos a ti</span>
                     </div>
                   </div>
                 </div>
@@ -176,24 +253,24 @@
         <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black/90"></div>
         <div class="relative mx-auto max-w-6xl space-y-10">
           <div class="space-y-4 text-center">
-            <h2 class="text-3xl font-semibold lg:text-5xl">Muchos negocios locales ya tienen demanda, pero no una experiencia digital que la aproveche.</h2>
-            <p class="mx-auto max-w-2xl text-white/70">Estos son los puntos donde más se pierde confianza antes incluso de hablar con el cliente.</p>
+            <h2 class="text-3xl font-semibold lg:text-5xl">Muchos negocios ya tienen clientes potenciales, pero no una presencia digital preparada para convertirlos.</h2>
+            <p class="mx-auto max-w-2xl text-white/70">Estos son algunos puntos en los que un negocio pierde visibilidad y confianza antes incluso del primer contacto.</p>
           </div>
           <div class="grid gap-6 lg:grid-cols-3">
             <article class="axora-card rounded-3xl border border-violet-500/25 bg-black/40 p-6 backdrop-blur">
               <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/30 bg-violet-500/15 text-sm font-semibold text-violet-100">01</div>
-              <h3 class="text-lg font-semibold text-violet-300">No hay una web clara</h3>
-              <p class="mt-3 leading-7 text-white/70">Te buscan, pero no encuentran una propuesta sólida, pruebas de confianza ni un camino claro para contactar.</p>
+              <h3 class="text-lg font-semibold text-violet-300">No hay una web profesional que explique bien el negocio</h3>
+              <p class="mt-3 leading-7 text-white/70">Te encuentran online, pero no ven una propuesta clara, servicios bien presentados ni una forma rápida de contactarte.</p>
             </article>
             <article class="axora-card rounded-3xl border border-violet-500/25 bg-black/40 p-6 backdrop-blur">
               <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/30 bg-violet-500/15 text-sm font-semibold text-violet-100">02</div>
-              <h3 class="text-lg font-semibold text-violet-300">Las redes no convierten</h3>
-              <p class="mt-3 leading-7 text-white/70">Publicar sin una narrativa, sin CTA y sin cohesión visual genera ruido, no oportunidades reales.</p>
+              <h3 class="text-lg font-semibold text-violet-300">Las redes sociales no transmiten confianza</h3>
+              <p class="mt-3 leading-7 text-white/70">Publicar sin una línea visual ni mensajes claros hace que la marca se vea improvisada y pierda oportunidades.</p>
             </article>
             <article class="axora-card rounded-3xl border border-violet-500/25 bg-black/40 p-6 backdrop-blur">
               <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/30 bg-violet-500/15 text-sm font-semibold text-violet-100">03</div>
-              <h3 class="text-lg font-semibold text-violet-300">Todo depende de estar pendiente</h3>
-              <p class="mt-3 leading-7 text-white/70">Responder lo mismo una y otra vez desgasta al equipo y ralentiza reservas, ventas y seguimiento.</p>
+              <h3 class="text-lg font-semibold text-violet-300">Todo depende de responder manualmente</h3>
+              <p class="mt-3 leading-7 text-white/70">Atender siempre las mismas consultas consume tiempo y retrasa reservas, ventas y seguimiento comercial.</p>
             </article>
           </div>
         </div>
@@ -205,9 +282,9 @@
         <div class="absolute inset-0 bg-gradient-to-r from-violet-700/45 via-violet-600/20 to-black/85"></div>
         <div class="relative mx-auto max-w-6xl space-y-12">
           <div class="space-y-5 text-center">
-            <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Nuestras Soluciones Para Ti</p>
-            <h2 class="text-3xl font-semibold lg:text-5xl">Paquetes de impacto visual, operativo y comercial.</h2>
-            <p class="mx-auto max-w-2xl text-white/78">Cada servicio está pensado para verse actual, sentirse premium y mover una métrica concreta del negocio.</p>
+            <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Soluciones digitales</p>
+            <h2 class="text-3xl font-semibold lg:text-5xl">Servicios pensados para mejorar la presencia online de pequeñas y medianas empresas.</h2>
+            <p class="mx-auto max-w-2xl text-white/78">Combinamos diseño, contenido y automatización para que tu negocio se vea mejor, comunique mejor y trabaje con más orden.</p>
           </div>
           <div class="grid gap-6 md:grid-cols-2">
             <article class="axora-card axora-glow-card rounded-[1.75rem] border border-violet-500/30 bg-black/45 p-8 backdrop-blur">
@@ -221,12 +298,12 @@
                 </div>
                 <span class="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-white/55">Web</span>
               </div>
-              <h3 class="mt-6 text-2xl font-semibold">Landing y web comercial</h3>
-              <p class="mt-3 text-white/72">Diseño orientado a credibilidad, estructura de venta y una experiencia móvil que no parece improvisada.</p>
+              <h3 class="mt-6 text-2xl font-semibold">Webs profesionales para negocios</h3>
+              <p class="mt-3 text-white/72">Creamos páginas web claras, rápidas y orientadas a generar confianza, mostrar tus servicios y facilitar el contacto.</p>
               <ul class="mt-6 space-y-3 text-sm text-white/65">
-                <li>Arquitectura enfocada en conversión</li>
-                <li>Copy claro para captar en segundos</li>
-                <li>Base preparada para SEO local</li>
+                <li>Estructura pensada para convertir visitas en contactos</li>
+                <li>Mensajes claros para explicar tu propuesta en segundos</li>
+                <li>Base preparada para SEO local y búsquedas de negocio</li>
               </ul>
             </article>
 
@@ -242,12 +319,12 @@
                 </div>
                 <span class="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-white/55">Experiencia</span>
               </div>
-              <h3 class="mt-6 text-2xl font-semibold">Menús y catálogos digitales</h3>
-              <p class="mt-3 text-white/72">Versiones rápidas, elegantes y fáciles de actualizar para restaurantes, clínicas o servicios con oferta cambiante.</p>
+              <h3 class="mt-6 text-2xl font-semibold">Menús digitales y catálogos QR</h3>
+              <p class="mt-3 text-white/72">Desarrollamos menús digitales para restaurantes, cafeterías y negocios que necesitan mostrar información actualizada de forma simple.</p>
               <ul class="mt-6 space-y-3 text-sm text-white/65">
-                <li>Lectura cómoda en móvil</li>
-                <li>Acceso por QR y enlaces rápidos</li>
-                <li>Presentación más profesional al instante</li>
+                <li>Lectura cómoda desde móvil</li>
+                <li>Acceso por código QR y enlaces directos</li>
+                <li>Información más ordenada y fácil de actualizar</li>
               </ul>
             </article>
 
@@ -262,12 +339,12 @@
                 </div>
                 <span class="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-white/55">Automatización</span>
               </div>
-              <h3 class="mt-6 text-2xl font-semibold">Chatbots y respuestas útiles</h3>
-              <p class="mt-3 text-white/72">Automatizamos preguntas frecuentes, derivaciones y primeros contactos sin romper la cercanía del negocio.</p>
+              <h3 class="mt-6 text-2xl font-semibold">Automatización y agentes de IA</h3>
+              <p class="mt-3 text-white/72">Implementamos respuestas automáticas, filtros de contacto y flujos simples para mejorar la atención sin perder cercanía.</p>
               <ul class="mt-6 space-y-3 text-sm text-white/65">
-                <li>Menos carga operativa manual</li>
-                <li>Mejor tiempo de respuesta</li>
-                <li>Seguimiento básico sin perder leads</li>
+                <li>Menos trabajo repetitivo para el equipo</li>
+                <li>Mejor tiempo de respuesta al cliente</li>
+                <li>Seguimiento básico sin perder oportunidades</li>
               </ul>
             </article>
 
@@ -282,12 +359,12 @@
                 </div>
                 <span class="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.22em] text-white/55">Contenido</span>
               </div>
-              <h3 class="mt-6 text-2xl font-semibold">Contenido y presencia social</h3>
-              <p class="mt-3 text-white/72">Construimos una línea visual y de mensaje que haga que la marca se recuerde y se perciba estable.</p>
+              <h3 class="mt-6 text-2xl font-semibold">Contenido para redes y material audiovisual</h3>
+              <p class="mt-3 text-white/72">Creamos contenido para empresas que necesitan verse consistentes en redes sociales y comunicar mejor su oferta.</p>
               <ul class="mt-6 space-y-3 text-sm text-white/65">
-                <li>Mensajes más claros para cada oferta</li>
-                <li>Más consistencia entre canales</li>
-                <li>CTA mejor integrados en la experiencia</li>
+                <li>Mensajes más claros para cada servicio u oferta</li>
+                <li>Más consistencia entre web, redes y campañas</li>
+                <li>Contenido pensado para informar y generar confianza</li>
               </ul>
             </article>
           </div>
@@ -301,8 +378,8 @@
         <div class="relative mx-auto max-w-6xl space-y-10">
           <div class="space-y-4 text-center">
             <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Cómo trabajamos</p>
-            <h2 class="text-3xl font-semibold lg:text-5xl">Un proceso visual, simple y fácil de seguir.</h2>
-            <p class="mx-auto max-w-2xl text-white/70">Tres pasos para pasar de una presencia dispersa a una experiencia digital que transmite seguridad.</p>
+            <h2 class="text-3xl font-semibold lg:text-5xl">Un proceso simple para ordenar y mejorar tu presencia digital.</h2>
+            <p class="mx-auto max-w-2xl text-white/70">Trabajamos en tres pasos claros para detectar prioridades, implementar soluciones y optimizar resultados.</p>
           </div>
 
           <div class="relative">
@@ -318,7 +395,7 @@
                 <div class="mt-6 space-y-3">
                   <p class="text-sm uppercase tracking-[0.3em] text-violet-300/70">Paso 1</p>
                   <h3 class="text-2xl font-semibold">Diagnóstico</h3>
-                  <p class="text-white/70">Auditamos presencia, propuesta y fricción comercial para detectar qué está frenando visibilidad o conversión.</p>
+                  <p class="text-white/70">Analizamos tu web, tus canales y tu comunicación para entender qué necesita mejorar primero.</p>
                 </div>
               </article>
 
@@ -333,7 +410,7 @@
                 <div class="mt-6 space-y-3">
                   <p class="text-sm uppercase tracking-[0.3em] text-violet-300/70">Paso 2</p>
                   <h3 class="text-2xl font-semibold">Implementación</h3>
-                  <p class="text-white/70">Diseñamos, construimos y conectamos las piezas clave para que la experiencia se sienta más premium y funcional.</p>
+                  <p class="text-white/70">Desarrollamos la web, el contenido o la automatización necesaria para que tu negocio se vea y funcione mejor.</p>
                 </div>
               </article>
 
@@ -349,7 +426,7 @@
                 <div class="mt-6 space-y-3">
                   <p class="text-sm uppercase tracking-[0.3em] text-violet-300/70">Paso 3</p>
                   <h3 class="text-2xl font-semibold">Optimización</h3>
-                  <p class="text-white/70">Medimos, simplificamos y afinamos mensajes, interacciones y rendimiento para que el sistema siga mejorando.</p>
+                  <p class="text-white/70">Ajustamos mensajes, recorridos y procesos para que la solución siga siendo útil y rentable con el tiempo.</p>
                 </div>
               </article>
             </div>
@@ -364,8 +441,8 @@
         <div class="relative mx-auto max-w-6xl space-y-10">
           <div class="space-y-4 text-center">
             <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Proyectos</p>
-            <h2 class="text-3xl font-semibold lg:text-5xl">Ejemplos que muestran el nivel visual y estratégico que puede tener tu marca.</h2>
-            <p class="mx-auto max-w-2xl text-white/78">Un carrusel pensado para explorar propuestas, no solo listar servicios.</p>
+            <h2 class="text-3xl font-semibold lg:text-5xl">Ejemplos de soluciones digitales aplicadas a negocios reales y escenarios similares.</h2>
+            <p class="mx-auto max-w-2xl text-white/78">Mostramos proyectos orientados a mejorar visibilidad, modernizar la marca y facilitar el acceso a la información.</p>
           </div>
 
           <div class="relative" data-carousel>
@@ -381,12 +458,12 @@
                     </div>
                     <div class="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/40 p-4">
                       <p class="text-sm text-white/55">Vista previa</p>
-                      <p class="mt-2 text-lg font-semibold">Carta QR + reservas automatizadas</p>
+                      <p class="mt-2 text-lg font-semibold">Menú QR y reservas más ágiles</p>
                     </div>
                   </div>
                   <p class="text-sm uppercase tracking-[0.24em] text-violet-300/70">Bistro Norte</p>
-                  <h3 class="mt-3 text-2xl font-semibold">Experiencia premium para un restaurante local</h3>
-                  <p class="mt-3 text-white/70">Un flujo que reduce preguntas repetidas y ayuda a cerrar la reserva en menos pasos.</p>
+                  <h3 class="mt-3 text-2xl font-semibold">Una experiencia digital más cómoda para un restaurante local</h3>
+                  <p class="mt-3 text-white/70">Una solución para mostrar el menú, resolver dudas frecuentes y facilitar las reservas desde el móvil.</p>
                 </article>
 
                 <article
@@ -399,12 +476,12 @@
                     </div>
                     <div class="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/40 p-4">
                       <p class="text-sm text-white/55">Vista previa</p>
-                      <p class="mt-2 text-lg font-semibold">Landing con agenda y prueba social</p>
+                      <p class="mt-2 text-lg font-semibold">Web con agenda online y mensajes de confianza</p>
                     </div>
                   </div>
                   <p class="text-sm uppercase tracking-[0.24em] text-violet-300/70">Clínica Dental</p>
                   <h3 class="mt-3 text-2xl font-semibold">Más claridad antes de la primera cita</h3>
-                  <p class="mt-3 text-white/70">Jerarquía fuerte, mensajes de confianza y CTA visibles para aumentar contactos cualificados.</p>
+                  <p class="mt-3 text-white/70">Una estructura pensada para explicar servicios, reforzar la confianza y facilitar la solicitud de cita.</p>
                 </article>
 
                 <article
@@ -417,12 +494,12 @@
                     </div>
                     <div class="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/40 p-4">
                       <p class="text-sm text-white/55">Vista previa</p>
-                      <p class="mt-2 text-lg font-semibold">FAQ inteligente y seguimiento</p>
+                      <p class="mt-2 text-lg font-semibold">Respuestas automáticas y seguimiento básico</p>
                     </div>
                   </div>
                   <p class="text-sm uppercase tracking-[0.24em] text-violet-300/70">Tienda Retail</p>
-                  <h3 class="mt-3 text-2xl font-semibold">Menos carga manual, más tiempo para vender</h3>
-                  <p class="mt-3 text-white/70">Automatización ligera para resolver dudas frecuentes y derivar contactos al canal adecuado.</p>
+                  <h3 class="mt-3 text-2xl font-semibold">Menos tareas repetitivas, más tiempo para vender</h3>
+                  <p class="mt-3 text-white/70">Automatización para resolver consultas frecuentes y dirigir cada contacto al canal adecuado.</p>
                 </article>
 
                 <article
@@ -435,12 +512,12 @@
                     </div>
                     <div class="absolute inset-x-4 bottom-4 rounded-2xl border border-white/10 bg-black/40 p-4">
                       <p class="text-sm text-white/55">Vista previa</p>
-                      <p class="mt-2 text-lg font-semibold">Sistema visual para redes y web</p>
+                      <p class="mt-2 text-lg font-semibold">Sistema visual para web y redes sociales</p>
                     </div>
                   </div>
                   <p class="text-sm uppercase tracking-[0.24em] text-violet-300/70">Estudio Local</p>
                   <h3 class="mt-3 text-2xl font-semibold">Una marca más consistente en todos los puntos de contacto</h3>
-                  <p class="mt-3 text-white/70">La percepción sube cuando la comunicación deja de sentirse improvisada y empieza a parecer intencional.</p>
+                  <p class="mt-3 text-white/70">Una línea visual y verbal más clara ayuda a que el negocio se vea más profesional y fácil de recordar.</p>
                 </article>
               </div>
             </div>
@@ -465,13 +542,13 @@
         <div class="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-center">
           <div class="space-y-5">
             <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Resultados esperables</p>
-            <h2 class="text-2xl font-semibold lg:text-4xl">Más visibilidad, más confianza y una operación mucho menos manual.</h2>
-            <p class="text-white/70">Una landing de este tipo funciona mejor cuando explica bien, reduce fricción y guía con CTA claros.</p>
+            <h2 class="text-2xl font-semibold lg:text-4xl">Más visibilidad, más confianza y procesos más simples para el día a día.</h2>
+            <p class="text-white/70">Una buena presencia online ayuda a explicar mejor lo que haces, generar confianza y facilitar el contacto con nuevos clientes.</p>
             <ul class="space-y-3 text-white/80">
               <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Más claridad antes del primer contacto</li>
-              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Mejor percepción de marca desde móvil</li>
-              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Procesos simples para captar y responder mejor</li>
-              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Base lista para escalar campañas o SEO local</li>
+              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Mejor imagen profesional desde móvil</li>
+              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Procesos más simples para captar y atender clientes</li>
+              <li class="flex items-center gap-3"><span class="h-2 w-2 rounded-full bg-violet-400"></span>Base preparada para SEO local y futuras campañas</li>
             </ul>
             <div class="mt-8 grid gap-4 sm:grid-cols-3">
               <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-center">
@@ -491,8 +568,8 @@
 
           <div class="rounded-[2rem] border border-white/10 bg-black/40 p-8 backdrop-blur-xl">
             <p class="text-sm uppercase tracking-[0.35em] text-violet-300/75">Impacto</p>
-            <h3 class="mt-4 text-3xl font-semibold">Una presencia digital consistente mejora la decisión antes de hablar contigo.</h3>
-            <p class="mt-4 text-white/75">La combinación de estructura, visual y automatización reduce abandono y transmite profesionalidad con más rapidez.</p>
+            <h3 class="mt-4 text-3xl font-semibold">Una presencia digital bien cuidada influye en la decisión antes incluso de hablar contigo.</h3>
+            <p class="mt-4 text-white/75">Cuando la web, el contenido y la atención funcionan en la misma dirección, el negocio transmite más confianza y responde mejor.</p>
             <div class="mt-8 grid grid-cols-2 gap-4">
               <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-center">
                 <p class="text-2xl font-semibold">+40%</p>
@@ -520,8 +597,8 @@
           src="img/videogalaxia.mp4"></video>
         <div class="absolute inset-0 bg-gradient-to-r from-violet-700/60 via-violet-600/45 to-fuchsia-500/35"></div>
         <div class="relative mx-auto max-w-5xl space-y-6 text-center">
-          <h2 class="text-3xl font-semibold lg:text-5xl">Si tu negocio ya funciona offline, hagamos que también destaque online.</h2>
-          <p class="mx-auto max-w-2xl text-white/90">Te preparamos un diagnóstico inicial para priorizar diseño, estructura y automatización sin complicarte con jerga técnica.</p>
+          <h2 class="text-3xl font-semibold lg:text-5xl">Si tu negocio ya funciona fuera de internet, hagamos que también se vea profesional online.</h2>
+          <p class="mx-auto max-w-2xl text-white/90">Cuéntanos tu situación y te ayudamos a descubrir qué solución digital puede mejorar tu presencia, tu comunicación y tu atención al cliente.</p>
           <a href="contacto.html#formulario"
             class="axora-cta inline-flex items-center justify-center rounded-full border border-white/15 bg-black/35 px-10 py-4 font-semibold text-white shadow-[0_0_20px_rgba(139,92,246,0.28)] transition-all duration-300 hover:-translate-y-1 hover:bg-black/50">
             Solicitar diagnóstico
@@ -535,7 +612,7 @@
         <div class="space-y-4">
           <img src="img/Black and Red Letter SM Elegant and Luxury Logo - 1_Nero_AI_Background_Remover_transparent.png"
             alt="Axora Agency" class="w-32">
-          <p class="text-white/70">Agencia digital para negocios locales que quieren crecer con tecnología y una presencia online más seria.</p>
+          <p class="text-white/70">Agencia de soluciones digitales para pequeños negocios que quieren mejorar su web, su imagen online y su forma de atender clientes.</p>
         </div>
         <div class="space-y-3">
           <p class="font-semibold">Enlaces</p>
@@ -546,10 +623,10 @@
         </div>
         <div class="space-y-3">
           <p class="font-semibold">Servicios</p>
-          <p class="text-white/70">Landing pages</p>
-          <p class="text-white/70">Automatización</p>
-          <p class="text-white/70">Contenido</p>
-          <p class="text-white/70">Optimización digital</p>
+          <p class="text-white/70">Webs profesionales</p>
+          <p class="text-white/70">Automatización con IA</p>
+          <p class="text-white/70">Contenido para redes</p>
+          <p class="text-white/70">Menús digitales QR</p>
         </div>
         <div class="space-y-3">
           <p class="font-semibold">Contacto</p>
