@@ -1,3 +1,4 @@
 [build]
+base = "Axora-proyecto"
   command = "npm run build"
   publish = "."
