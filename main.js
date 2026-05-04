@@ -217,6 +217,11 @@
       return /<[^>]*>|https?:\/\/|www\.|[\r\n]{2,}/i.test(value);
     };
 
+    var encodeForm = function () {
+      var data = new FormData(form);
+      return new URLSearchParams(data).toString();
+    };
+
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 
@@ -267,7 +272,31 @@
         submit.textContent = 'Enviando solicitud...';
       }
       showStatus('Formulario validado. Enviando solicitud de forma segura...', 'success');
-      form.submit();
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encodeForm(),
+      })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error('No se pudo enviar el formulario.');
+          }
+
+          form.reset();
+          showStatus('Formulario enviado. Gracias por escribirnos; revisaremos tu solicitud y te contactaremos pronto.', 'success');
+          if (submit) {
+            submit.textContent = 'Solicitud enviada';
+          }
+        })
+        .catch(function () {
+          submitted = false;
+          showStatus('No pudimos enviar el formulario ahora. Inténtalo de nuevo en unos minutos.', 'error');
+          if (submit) {
+            submit.disabled = false;
+            submit.textContent = 'Enviar solicitud';
+          }
+        });
     });
   }
 
