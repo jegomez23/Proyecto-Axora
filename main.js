@@ -189,6 +189,13 @@
     var submit = form.querySelector('button[type="submit"]');
     var startedAt = Date.now();
     var submitted = false;
+    var endpoint = form.getAttribute('data-endpoint') || '/.netlify/functions/contact-submit';
+    var successUrl = form.getAttribute('data-success-url') || form.getAttribute('action') || 'gracias.html';
+    var submittedAtField = form.querySelector('input[name="submitted_at"]');
+
+    if (submittedAtField) {
+      submittedAtField.value = String(startedAt);
+    }
 
     var showStatus = function (message, type) {
       if (!status) return;
@@ -217,9 +224,37 @@
       return /<[^>]*>|https?:\/\/|www\.|[\r\n]{2,}/i.test(value);
     };
 
-    var encodeForm = function () {
-      var data = new FormData(form);
-      return new URLSearchParams(data).toString();
+    var getPayload = function () {
+      var consentField = form.querySelector('input[name="consentimiento"]');
+      return {
+        nombre: form.querySelector('#nombre').value,
+        email: form.querySelector('#email').value,
+        negocio: form.querySelector('#negocio').value,
+        mensaje: form.querySelector('#mensaje').value,
+        consentimiento: !!(consentField && consentField.checked),
+        empresa: form.querySelector('[data-honeypot]') ? form.querySelector('[data-honeypot]').value : '',
+        submitted_at: submittedAtField ? Number(submittedAtField.value) : startedAt
+      };
+    };
+
+    var sendToContactEndpoint = function (payload) {
+      return fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(function (response) {
+          return response.json().catch(function () {
+            return {};
+          }).then(function (data) {
+            if (!response.ok) {
+              throw new Error(data.error || 'No se pudo enviar el formulario.');
+            }
+            return data;
+          });
+        });
     };
 
     form.addEventListener('submit', function (event) {
@@ -273,23 +308,22 @@
       }
       showStatus('Formulario validado. Enviando solicitud de forma segura...', 'success');
 
-      fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encodeForm(),
-      })
-        .then(function (response) {
-          if (!response.ok) {
-            throw new Error('No se pudo enviar el formulario.');
-          }
-
+      sendToContactEndpoint(getPayload())
+        .then(function (result) {
           form.reset();
+          if (submittedAtField) {
+            submittedAtField.value = String(Date.now());
+          }
           showStatus('Formulario enviado. Gracias por escribirnos; revisaremos tu solicitud y te contactaremos pronto.', 'success');
           if (submit) {
             submit.textContent = 'Solicitud enviada';
           }
+          window.setTimeout(function () {
+            window.location.href = result.redirectTo || successUrl;
+          }, 800);
         })
-        .catch(function () {
+        .catch(function (error) {
+          console.error('Contact form error:', error);
           submitted = false;
           showStatus('No pudimos enviar el formulario ahora. Inténtalo de nuevo en unos minutos.', 'error');
           if (submit) {

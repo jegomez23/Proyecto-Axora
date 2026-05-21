@@ -96,13 +96,13 @@
               <h2 class="mt-4 text-2xl font-semibold lg:text-4xl">Déjanos tus datos y preparamos un diagnóstico inicial.</h2>
               <p class="mt-3 max-w-xl text-white/70">Es un primer paso simple para valorar cómo mejorar la presencia digital de tu negocio sin complicaciones.</p>
 
-              <form class="mt-8 space-y-5" name="contacto" method="post" action="/gracias.html" autocomplete="on"
-                data-contact-form data-netlify="true" netlify-honeypot="empresa">
-                <input type="hidden" name="form-name" value="contacto">
+              <form class="mt-8 space-y-5" name="contacto" method="post" action="gracias.html" autocomplete="on"
+                data-contact-form data-endpoint="/.netlify/functions/contact-submit" data-success-url="gracias.html">
                 <div class="hidden" aria-hidden="true">
                   <label for="empresa">Empresa</label>
                   <input id="empresa" name="empresa" type="text" tabindex="-1" autocomplete="off" data-honeypot>
                 </div>
+                <input type="hidden" name="submitted_at" value="">
                 <div class="grid gap-5 md:grid-cols-2">
                   <div>
                     <label for="nombre" class="axora-field-label">Nombre</label>
