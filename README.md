@@ -4,9 +4,9 @@ Sitio web estatico para Axora, una agencia de soluciones digitales para negocios
 
 ## Estructura
 
-- `index.html`: pagina principal.
+- `index.html`: pagina principal (one-page: soluciones, proceso y proyectos como secciones con anclas).
 - `contacto.html`: pagina de contacto con formulario conectado a una funcion serverless.
-- `proceso.html`, `proyectos.html`, `soluciones.html`: paginas internas.
+- `gracias.html`: pagina de confirmacion tras enviar el formulario.
 - `main.js`: interacciones del sitio y envio del formulario.
 - `netlify/functions/contact-submit.js`: endpoint seguro para insertar en Supabase.
 - `supabase/contact_leads.sql`: tabla y policies alineadas con tu modelo `contact_leads`.

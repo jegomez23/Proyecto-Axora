@@ -1,415 +1,406 @@
 @import "tailwindcss";
 
-:root {
-  --axora-violet: #8b5cf6;
-  --axora-violet-soft: rgba(139, 92, 246, 0.22);
-  --axora-pink-soft: rgba(236, 72, 153, 0.18);
-  --axora-surface: rgba(8, 8, 15, 0.62);
-  --axora-border: rgba(255, 255, 255, 0.12);
+/* ============================================================
+   AXORA — Sistema de diseño
+   Tokens → componentes → páginas.
+   Personalidad: clara · humana · elegante · segura · sofisticada.
+   La belleza viene de proporciones, espacio, tipografía y jerarquía.
+   ============================================================ */
+
+@theme {
+  /* Tipografía: Fraunces (display, humanista/editorial) + Figtree (cuerpo) */
+  --font-sans: "Figtree", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Fondo / superficies (profundidad controlada, no negro plano) */
+  --color-void: #060510;
+  --color-abyss: #080713;
+  --color-surface: #0d0b1a;
+  --color-surface-2: #131024;
+
+  /* Marca */
+  --color-axora-violet: #8b5cf6;
+  --color-axora-violet-bright: #a78bfa;
+  --color-axora-plum: #6d28d9;
+  --color-axora-blush: #e0aaff;
+
+  /* Jerarquía de texto sobre oscuro (contraste AA verificado) */
+  --color-ink: #f6f4ff;      /* títulos */
+  --color-body: #cbc5e4;     /* cuerpo */
+  --color-muted: #a49dc4;    /* secundario */
+  --color-subtle: #837ca3;   /* apoyo / eyebrows */
+
+  /* Radios y sombras coherentes */
+  --radius-card: 1.5rem;
+  --shadow-card: 0 24px 60px -24px rgba(4, 2, 12, 0.85);
+  --shadow-float: 0 40px 90px -40px rgba(76, 29, 149, 0.55);
 }
 
-.text-white\/90,
-.text-white\/80,
-.text-white\/78,
-.text-white\/75,
-.text-white\/72,
-.text-white\/70,
-.text-white\/68 {
-  color: rgb(245 243 255);
-}
-
-.text-white\/65,
-.text-white\/60,
-.text-white\/55 {
-  color: rgb(221 214 254);
-}
-
-.text-white\/45 {
-  color: rgb(196 181 253);
-}
-
-.placeholder\:text-white\/35::placeholder {
-  color: rgb(196 181 253);
-}
+/* ---------- Base ---------- */
 
 html {
   scroll-behavior: smooth;
+  /* offset para que las anclas no queden bajo el navbar fijo */
+  scroll-padding-top: 6rem;
 }
 
-body.menu-open {
-  overflow: hidden;
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-void);
+  color: var(--color-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
-.menu-line {
-  transition: transform 0.25s ease, opacity 0.25s ease;
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
 }
 
-.menu-btn.is-open .line-1 {
-  transform: translateY(8px) rotate(45deg);
+/* Nota: text-ink / text-body / text-muted / text-subtle se generan
+   automáticamente desde los tokens de color del @theme, así que las variantes
+   hover:/focus: de Tailwind funcionan con la prioridad correcta. No se
+   redefinen aquí para no romper el cascade con clases sin capa. */
+
+/* Eyebrow: etiqueta discreta y consistente en todas las secciones.
+   display:block para que envuelva y no fuerce el ancho de columnas (evita
+   desbordamiento horizontal en móvil). */
+.axora-eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-axora-violet-bright);
 }
 
-.menu-btn.is-open .line-2 {
-  opacity: 0;
+body.menu-open { overflow: hidden; }
+
+/* ---------- Firma visual de marca: campo espacial reutilizable ----------
+   Sustituye al vídeo omnipresente. Retícula + constelación + brumas
+   muy sutiles = profundidad y silencio visual, sin ruido. */
+.axora-field {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-void);
 }
 
-.menu-btn.is-open .line-3 {
-  transform: translateY(-8px) rotate(-45deg);
+.axora-field::before {
+  /* retícula fina enmascarada radialmente (firma de marca) */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 25%, transparent 75%);
+  pointer-events: none;
 }
 
-.menu-panel {
-  max-height: 0;
-  overflow: hidden;
+.axora-field::after {
+  /* brumas violetas de profundidad, muy contenidas */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40% 50% at 15% 0%, rgba(109, 40, 217, 0.16), transparent 70%),
+    radial-gradient(45% 55% at 90% 20%, rgba(139, 92, 246, 0.10), transparent 72%);
+  pointer-events: none;
 }
 
-.menu-panel.is-open {
-  max-height: 420px;
+/* Variante para la sección de contacto (cierre cálido de la conversación) */
+.axora-field-warm::after {
+  background:
+    radial-gradient(50% 60% at 20% 100%, rgba(139, 92, 246, 0.20), transparent 70%),
+    radial-gradient(50% 60% at 85% 0%, rgba(224, 170, 255, 0.10), transparent 72%);
 }
 
+/* Constelación decorativa (puntos + líneas) como acento de marca, opcional */
+.axora-constellation {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Divisor superior sutil entre secciones (ritmo).
+   Usa border-top (no pseudo-elemento) para no chocar con .axora-field::before. */
+.axora-divide {
+  border-top: 1px solid rgba(139, 92, 246, 0.12);
+}
+
+/* ---------- Navbar ---------- */
 .axora-scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
-  height: 3px;
+  height: 2px;
   width: 100%;
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.95), rgba(236, 72, 153, 0.7));
+  background: linear-gradient(90deg, var(--color-axora-violet), var(--color-axora-blush));
   transform: scaleX(0);
   transform-origin: left;
   z-index: 60;
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.45);
 }
 
 [data-nav-surface] {
-  transition: background-color 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease,
-    backdrop-filter 0.35s ease, transform 0.35s ease;
+  transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
 }
 
 [data-nav-surface].is-scrolled {
-  background-color: rgba(5, 5, 10, 0.82);
-  border-color: rgba(139, 92, 246, 0.35);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  background-color: rgba(8, 7, 19, 0.72);
+  border-color: rgba(139, 92, 246, 0.28);
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(18px);
 }
 
+/* Enlace de navegación con subrayado animado (una sola definición canónica) */
+.axora-navlink {
+  position: relative;
+  color: var(--color-body);
+  transition: color 0.3s ease;
+}
+.axora-navlink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  height: 1.5px;
+  width: 100%;
+  background: var(--color-axora-violet-bright);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.axora-navlink:hover { color: var(--color-ink); }
+.axora-navlink:hover::after { transform: scaleX(1); }
+
+/* Menú móvil (clases usadas por main.js) */
+.menu-line { transition: transform 0.25s ease, opacity 0.25s ease; }
+.menu-btn.is-open .line-1 { transform: translateY(8px) rotate(45deg); }
+.menu-btn.is-open .line-2 { opacity: 0; }
+.menu-btn.is-open .line-3 { transform: translateY(-8px) rotate(-45deg); }
+.menu-panel { max-height: 0; overflow: hidden; }
+.menu-panel.is-open { max-height: 420px; }
+
+/* ---------- Reveal on-scroll (microinteracción con propósito, sobria) ---------- */
 .axora-reveal {
   opacity: 0;
-  transform: translateY(18px);
-  filter: blur(6px);
-  transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+  transform: translateY(14px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
-
 .axora-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
 }
 
-.axora-section {
-  isolation: isolate;
-}
-
-.axora-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: min(92%, 1100px);
-  height: 1px;
-  transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 2;
-}
-
+/* ---------- Tarjeta unificada ---------- */
 .axora-card {
-  transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease, background 0.35s ease;
-  will-change: transform;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(19, 16, 36, 0.7), rgba(13, 11, 26, 0.55));
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
 }
-
 .axora-card:hover {
-  box-shadow: 0 22px 50px rgba(139, 92, 246, 0.18);
-  border-color: rgba(139, 92, 246, 0.6);
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: var(--shadow-card), 0 0 0 1px rgba(139, 92, 246, 0.12);
+  transform: translateY(-3px);
 }
 
-.axora-cta {
-  transition: box-shadow 0.3s ease, filter 0.3s ease, transform 0.3s ease;
-}
-
-.axora-cta:hover {
-  box-shadow: 0 0 25px rgba(139, 92, 246, 0.45);
-  filter: brightness(1.05);
-}
-
-.axora-input {
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
-}
-
-.axora-input:focus {
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
-  border-color: rgba(139, 92, 246, 0.65);
-  background-color: rgba(8, 8, 16, 0.9);
-}
-
-.axora-hero-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 90px 90px;
-  mask-image: radial-gradient(circle at center, black 35%, transparent 78%);
-  opacity: 0.28;
-}
-
-.axora-hero-orb {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(55px);
-  pointer-events: none;
-  opacity: 0.9;
-  animation: axora-float 13s ease-in-out infinite;
-}
-
-.axora-hero-orb.is-delayed {
-  animation-delay: -4s;
-}
-
-.axora-hero-orb.is-slow {
-  animation-duration: 18s;
-}
-
-.axora-glow-card {
+/* Tarjeta destacada (acento de marca en el borde superior) */
+.axora-card-feature {
   position: relative;
   overflow: hidden;
 }
-
-.axora-glow-card::before {
+.axora-card-feature::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top left, rgba(139, 92, 246, 0.22), transparent 45%);
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.6), transparent);
 }
 
-.axora-glow-card:hover::before {
-  opacity: 1;
-}
-
-.axora-solution-icon,
-.axora-process-icon,
-.axora-project-icon {
+/* Iconos de sección: contenedor consistente y sobrio */
+.axora-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 1rem;
-  border: 1px solid rgba(139, 92, 246, 0.28);
-  background: linear-gradient(180deg, rgba(139, 92, 246, 0.22), rgba(15, 15, 25, 0.45));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 25px rgba(139, 92, 246, 0.16);
+  border-radius: 0.9rem;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.16), rgba(19, 16, 36, 0.4));
+  color: var(--color-axora-blush);
 }
 
-.axora-process-line {
-  position: absolute;
-  top: 2.9rem;
-  left: 15%;
-  width: 70%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.6), transparent);
-  z-index: 0;
+/* ---------- CTA ---------- */
+.axora-cta {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+.axora-cta-primary {
+  background: linear-gradient(180deg, var(--color-axora-violet), var(--color-axora-plum));
+  border: 1px solid rgba(167, 139, 250, 0.6);
+  color: #fff;
+  box-shadow: 0 12px 30px -12px rgba(139, 92, 246, 0.6);
+}
+.axora-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -14px rgba(139, 92, 246, 0.7);
+}
+.axora-cta-ghost {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--color-ink);
+}
+.axora-cta-ghost:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.05);
 }
 
+/* ---------- Marco de dispositivo (el producto como protagonista) ---------- */
+.axora-device {
+  position: relative;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(19, 16, 36, 0.9), rgba(8, 7, 19, 0.9));
+  box-shadow: var(--shadow-float);
+  overflow: hidden;
+}
+.axora-device-bar {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.axora-device-dot {
+  height: 0.6rem;
+  width: 0.6rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ---------- Formulario ---------- */
+.axora-input {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.axora-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.22);
+  border-color: rgba(139, 92, 246, 0.6);
+  background-color: rgba(8, 7, 19, 0.9);
+}
+.axora-input::placeholder { color: var(--color-subtle); }
+.axora-field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+.axora-check { accent-color: var(--color-axora-violet); }
+
+/* ---------- Carrusel ---------- */
 .axora-carousel-track {
   display: flex;
   gap: 1.5rem;
-  transition: transform 0.5s ease;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
-
-.axora-carousel-item {
-  flex: 0 0 100%;
-}
-
-.axora-project-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.axora-project-card::after {
-  content: "";
-  position: absolute;
-  inset: auto 1.5rem 1.5rem;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.35), transparent);
-}
-
-.axora-project-preview {
-  position: relative;
-  overflow: hidden;
-}
-
-.axora-project-preview::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 50%, rgba(139, 92, 246, 0.22));
-}
+.axora-carousel-item { flex: 0 0 100%; }
 
 .axora-carousel-btn {
   height: 44px;
   width: 44px;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(0, 0, 0, 0.35);
-  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(19, 16, 36, 0.6);
+  color: var(--color-ink);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
 }
-
 .axora-carousel-btn:hover {
-  background: rgba(139, 92, 246, 0.35);
-  border-color: rgba(139, 92, 246, 0.7);
+  background: rgba(139, 92, 246, 0.28);
+  border-color: rgba(167, 139, 250, 0.6);
   transform: translateY(-2px);
 }
-
 .axora-carousel-btn:disabled {
-  opacity: 0.45;
+  opacity: 0.35;
   cursor: not-allowed;
   transform: none;
 }
-
 .axora-dot {
-  height: 8px;
-  width: 8px;
+  height: 7px;
+  width: 7px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.3);
-  transition: transform 0.2s ease, background 0.2s ease;
+  background: rgba(255, 255, 255, 0.22);
+  transition: transform 0.25s ease, background 0.25s ease, width 0.25s ease;
 }
-
 .axora-dot.is-active {
-  background: rgba(139, 92, 246, 0.9);
-  transform: scale(1.25);
+  background: var(--color-axora-violet-bright);
+  width: 22px;
+  border-radius: 9999px;
 }
 
-.axora-contact-shell {
-  position: relative;
-  overflow: hidden;
-}
-
-.axora-contact-shell::before {
-  content: "";
+/* ---------- Línea de proceso (conecta los pasos: firma de marca) ---------- */
+.axora-process-line {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, rgba(139, 92, 246, 0.14), transparent 35%, rgba(236, 72, 153, 0.1));
-  pointer-events: none;
+  top: 3.25rem;
+  left: 12%;
+  width: 76%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+  z-index: 0;
 }
 
-.axora-field-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.82);
-}
-
-.axora-check {
-  accent-color: var(--axora-violet);
-}
-
-@keyframes axora-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(0, -18px, 0) scale(1.04);
-  }
-}
-
+/* ---------- Responsive ---------- */
 @media (min-width: 640px) {
-  .axora-carousel-item {
-    flex-basis: calc(50% - 0.75rem);
-  }
+  .axora-carousel-item { flex-basis: calc(50% - 0.75rem); }
 }
-
 @media (min-width: 1024px) {
-  .axora-carousel-item {
-    flex-basis: calc(33.3333% - 1rem);
-  }
+  .axora-carousel-item { flex-basis: calc(33.3333% - 1rem); }
 }
-
 @media (max-width: 1023px) {
-  .axora-process-line {
-    display: none;
-  }
+  .axora-process-line { display: none; }
 }
 
 @media (max-width: 767px) {
-  [data-navbar] .axora-nav-wrap {
-    padding-left: 0.625rem;
-    padding-right: 0.625rem;
-    padding-top: 0.3125rem;
-  }
-
-  [data-navbar] .axora-nav-main {
-    justify-content: space-around;
-    gap: 0.375rem;
-    padding-left: 0.625rem;
-    padding-right: 0.625rem;
-    padding-top: 0.125rem;
-    padding-bottom: 0.125rem;
-  }
-
-  [data-navbar] .axora-nav-logo {
-    width: 5rem;
-  }
-
+  [data-navbar] .axora-nav-logo { width: 6rem; }
   [data-navbar] .menu-btn {
     display: inline-flex;
-    height: 1.95rem;
-    width: 1.95rem;
+    height: 2rem;
+    width: 2rem;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 9999px;
   }
-
   [data-navbar] .menu-btn:focus-visible {
     outline: 2px solid rgba(196, 181, 253, 0.9);
     outline-offset: 2px;
   }
-
-  [data-navbar] .menu-line {
-    width: 1.25rem;
-  }
-
-  [data-navbar] .line-2,
-  [data-navbar] .line-3 {
-    margin-top: 0.1875rem;
-  }
-
-  [data-navbar] .menu-btn.is-open .line-1 {
-    transform: translateY(4px) rotate(45deg);
-  }
-
-  [data-navbar] .menu-btn.is-open .line-3 {
-    transform: translateY(-4px) rotate(-45deg);
-  }
+  [data-navbar] .menu-line { width: 1.25rem; }
+  [data-navbar] .line-2, [data-navbar] .line-3 { margin-top: 0.3rem; }
 }
 
+/* ---------- Accesibilidad: movimiento reducido ---------- */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
+  html { scroll-behavior: auto; }
   .axora-reveal,
-  .axora-hero-orb,
   .axora-carousel-track,
   .axora-card,
   .axora-cta {
     transition: none;
     animation: none;
     transform: none;
-    filter: none;
     opacity: 1;
   }
 }

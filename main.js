@@ -94,18 +94,8 @@
     });
   }
 
-  function initSectionDividers() {
-    var sections = document.querySelectorAll('main section');
-    sections.forEach(function (section, index) {
-      if (index === 0) return;
-      section.classList.add('axora-section');
-    });
-  }
-
   function initRevealAnimations() {
-    var targets = document.querySelectorAll(
-      'main section .max-w-5xl, main section .max-w-6xl, main section .max-w-7xl, main section article, main section form'
-    );
+    var targets = document.querySelectorAll('[data-reveal]');
 
     if (!targets.length) return;
 
@@ -156,29 +146,6 @@
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-  }
-
-  function initHoverEnhancements() {
-    document.querySelectorAll('main .rounded-2xl, main .rounded-3xl, main .rounded-\\[1\\.75rem\\]').forEach(function (card) {
-      card.classList.add('axora-card');
-    });
-
-    document.querySelectorAll('main a, main button').forEach(function (cta) {
-      var className = cta.className || '';
-      if (
-        className.indexOf('rounded-full') !== -1 ||
-        className.indexOf('border-violet') !== -1 ||
-        className.indexOf('bg-violet') !== -1
-      ) {
-        cta.classList.add('axora-cta');
-      }
-    });
-  }
-
-  function initFocusStyles() {
-    document.querySelectorAll('input, textarea, select').forEach(function (field) {
-      field.classList.add('axora-input');
-    });
   }
 
   function initProtectedContactForm() {
@@ -535,11 +502,8 @@
   initMenuToggle();
   initNavbarScroll();
   initSmoothScroll();
-  initSectionDividers();
   initRevealAnimations();
   initScrollProgress();
-  initHoverEnhancements();
-  initFocusStyles();
   initProtectedContactForm();
   initCarousel();
   initCounters();
